@@ -2,391 +2,204 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#0a0a0a">
-<title>EVI - Eventos, Vendas e Aluguéis</title>
-<link rel="manifest" href="manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EVI - Eventos</title>
 <style>
-:root{
-  --vermelho:#e50914;
-  --vermelho-esc:#b00610;
-  --preto:#0a0a0a;
-  --preto-2:#141414;
-  --preto-3:#1f1f1f;
-  --cinza:#888;
-  --branco:#fff;
-  --grad: linear-gradient(135deg, #e50914 0%, #7a0409 100%);
-}
+:root{--vermelho:#e50914;--preto:#0a0a0a;--preto-2:#141414;--preto-3:#1f1f1f;--cinza:#888;--branco:#fff;--grad:linear-gradient(135deg,#e50914 0%,#7a0409 100%);--verde:#00c853;--amarelo:#ffc107}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  background:var(--preto);color:var(--branco);overflow-x:hidden;
-  padding-bottom:70px;
-}
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-thumb{background:var(--vermelho);border-radius:3px}
-::-webkit-scrollbar-track{background:var(--preto-2)}
-
-/* HEADER */
-header{
-  position:sticky;top:0;z-index:100;
-  background:rgba(10,10,10,.95);
-  backdrop-filter:blur(10px);
-  border-bottom:2px solid var(--vermelho);
-  padding:12px 16px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.logo{
-  font-size:26px;font-weight:900;letter-spacing:2px;
-  background:var(--grad);-webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;background-clip:text;
-  text-shadow:0 0 20px rgba(229,9,20,.4);
-}
-.logo span{color:var(--branco);-webkit-text-fill-color:var(--branco);font-size:12px;display:block;letter-spacing:1px;font-weight:400}
-.icon-btn{
-  background:none;border:none;color:var(--branco);
-  width:42px;height:42px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:22px;transition:.3s;
-  position:relative;
-}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--preto);color:var(--branco);padding-bottom:80px}
+header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-filter:blur(20px);border-bottom:2px solid var(--vermelho);padding:10px 14px;display:flex;align-items:center;gap:10px}
+.logo{font-size:22px;font-weight:900;letter-spacing:3px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex:1}
+.logo span{display:block;font-size:9px;letter-spacing:1px;color:var(--cinza);-webkit-text-fill-color:var(--cinza)}
+.icon-btn{background:none;border:none;color:var(--branco);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;position:relative}
 .icon-btn:hover{background:var(--vermelho)}
-.badge{
-  position:absolute;top:2px;right:2px;background:var(--vermelho);
-  color:#fff;font-size:10px;font-weight:bold;border-radius:50%;
-  width:18px;height:18px;display:flex;align-items:center;justify-content:center;
-}
-.cart-count{background:var(--vermelho)!important}
-
-/* TELAS */
-.screen{display:none;padding:16px;animation:fade .3s}
+.badge{position:absolute;top:2px;right:2px;background:var(--vermelho);color:#fff;font-size:9px;font-weight:bold;border-radius:50%;min-width:16px;height:16px;padding:0 4px;display:flex;align-items:center;justify-content:center;border:2px solid var(--preto)}
+.screen{display:none;padding:16px;min-height:calc(100vh - 140px)}
 .screen.active{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-
-/* BOTÕES */
-.btn{
-  background:var(--grad);color:#fff;border:none;
-  padding:14px 24px;border-radius:12px;font-size:15px;
-  font-weight:700;cursor:pointer;width:100%;transition:.3s;
-  text-transform:uppercase;letter-spacing:1px;
-  box-shadow:0 4px 20px rgba(229,9,20,.4);
-}
-.btn:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(229,9,20,.6)}
+.btn{background:var(--grad);color:#fff;border:none;padding:14px 22px;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;width:100%;text-transform:uppercase;letter-spacing:1px;box-shadow:0 4px 20px rgba(229,9,20,.4);margin-top:8px}
 .btn:active{transform:scale(.97)}
-.btn-outline{
-  background:transparent;border:2px solid var(--vermelho);color:var(--vermelho);
-  box-shadow:none;
-}
-.btn-outline:hover{background:var(--vermelho);color:#fff}
-.btn-google{
-  background:#fff;color:#333;border:none;padding:14px;
-  border-radius:12px;font-weight:700;width:100%;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  font-size:15px;margin-top:10px;
-}
-.btn-google img{width:22px;height:22px}
-
-/* INPUTS */
-.input-group{margin-bottom:16px}
-.input-group label{
-  display:block;font-size:13px;color:var(--cinza);
-  margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;
-}
-.input-group input,.input-group select,.input-group textarea{
-  width:100%;padding:14px;background:var(--preto-3);
-  border:2px solid #2a2a2a;border-radius:10px;
-  color:#fff;font-size:15px;outline:none;transition:.3s;
-  font-family:inherit;
-}
-.input-group input:focus,.input-group select:focus,.input-group textarea:focus{
-  border-color:var(--vermelho);background:#1a1a1a;
-  box-shadow:0 0 15px rgba(229,9,20,.3);
-}
-
-/* CARDS */
-.card{
-  background:var(--preto-2);border-radius:16px;
-  padding:16px;margin-bottom:14px;border:1px solid #222;
-  transition:.3s;
-}
-.card:hover{border-color:var(--vermelho)}
-.card-title{font-size:18px;font-weight:800;margin-bottom:8px;color:#fff}
-.card-text{font-size:14px;color:var(--cinza);line-height:1.5}
-
-/* PRODUTOS */
-.products-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  gap:12px;
-}
-.product-card{
-  background:var(--preto-2);border-radius:14px;overflow:hidden;
-  border:1px solid #222;transition:.3s;position:relative;
-}
-.product-card:hover{transform:translateY(-4px);border-color:var(--vermelho);box-shadow:0 8px 30px rgba(229,9,20,.3)}
-.product-img{
-  width:100%;height:140px;object-fit:cover;
-  background:linear-gradient(135deg,#1a1a1a,#2a2a2a);
-  display:flex;align-items:center;justify-content:center;
-  font-size:50px;color:#444;
-}
+.btn-outline{background:transparent;border:2px solid var(--vermelho);color:var(--vermelho);box-shadow:none}
+.btn-success{background:linear-gradient(135deg,#00c853,#009624);box-shadow:0 4px 20px rgba(0,200,83,.4)}
+.btn-google{background:#fff;color:#333;border:none;padding:14px;border-radius:12px;font-weight:700;width:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-size:15px}
+.input-group{margin-bottom:14px}
+.input-group label{display:block;font-size:12px;color:var(--cinza);margin-bottom:5px;font-weight:700;text-transform:uppercase}
+.input-group input,.input-group select,.input-group textarea{width:100%;padding:13px;background:var(--preto-3);border:2px solid #2a2a2a;border-radius:10px;color:#fff;font-size:14px;outline:none;font-family:inherit}
+.input-group input:focus,.input-group select:focus{border-color:var(--vermelho)}
+.card{background:var(--preto-2);border-radius:16px;padding:16px;margin-bottom:14px;border:1px solid #222}
+.hero{background:var(--grad);border-radius:20px;padding:22px;margin-bottom:18px}
+.hero h1{font-size:22px;margin-bottom:6px}
+.hero p{font-size:13px;opacity:.95}
+.section-title{font-size:16px;font-weight:800;margin:18px 0 10px;display:flex;align-items:center;gap:8px}
+.section-title::before{content:'';width:4px;height:18px;background:var(--vermelho);border-radius:2px}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.product-card{background:var(--preto-2);border-radius:14px;overflow:hidden;border:1px solid #222;position:relative}
+.product-img{width:100%;height:130px;object-fit:cover;background:var(--preto-3)}
 .product-info{padding:10px}
-.product-name{font-size:14px;font-weight:700;margin-bottom:4px;color:#fff}
-.product-price{font-size:16px;color:var(--vermelho);font-weight:900;margin-bottom:8px}
-.product-tag{
-  position:absolute;top:8px;left:8px;
-  background:var(--vermelho);color:#fff;font-size:10px;
-  padding:4px 8px;border-radius:6px;font-weight:bold;
-  text-transform:uppercase;
-}
-.product-tag.rent{background:#ff6b00}
+.product-name{font-size:13px;font-weight:700;margin-bottom:4px;line-height:1.3}
+.product-price{font-size:16px;color:var(--vermelho);font-weight:900;margin-bottom:6px}
 .product-actions{display:flex;gap:6px}
-.product-actions button{
-  flex:1;padding:8px;font-size:12px;border-radius:8px;
-  border:none;cursor:pointer;font-weight:700;
-}
-.btn-add{background:var(--preto-3);color:#fff;border:1px solid #333!important}
+.product-actions button{flex:1;padding:7px;font-size:11px;border-radius:7px;border:none;cursor:pointer;font-weight:700}
+.btn-add{background:var(--preto-3);color:#fff;border:1px solid #333}
 .btn-buy{background:var(--vermelho);color:#fff}
-
-/* BOTTOM NAV */
-.bottom-nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:100;
-  background:rgba(10,10,10,.98);backdrop-filter:blur(20px);
-  border-top:2px solid var(--vermelho);
-  display:flex;justify-content:space-around;
-  padding:10px 0;padding-bottom:max(10px,env(safe-area-inset-bottom));
-}
-.nav-item{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  background:none;border:none;color:var(--cinza);cursor:pointer;
-  font-size:10px;font-weight:600;padding:6px 12px;transition:.3s;
-  text-transform:uppercase;letter-spacing:.5px;
-}
-.nav-item svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2}
+.product-tag{position:absolute;top:8px;left:8px;color:#fff;font-size:9px;padding:3px 7px;border-radius:5px;font-weight:800;text-transform:uppercase}
+.product-tag.rent{background:#ff6b00}
+.product-tag.sell{background:var(--verde)}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);border-top:2px solid var(--vermelho);display:flex;justify-content:space-around;padding:8px 0}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;color:var(--cinza);cursor:pointer;font-size:10px;font-weight:700;padding:6px 10px;text-transform:uppercase}
 .nav-item.active{color:var(--vermelho)}
-.nav-item.active svg{filter:drop-shadow(0 0 8px var(--vermelho))}
-
-/* AVATAR MENU */
-.avatar-menu{
-  position:fixed;top:70px;right:16px;z-index:200;
-  background:var(--preto-2);border:1px solid #333;
-  border-radius:14px;min-width:220px;overflow:hidden;
-  box-shadow:0 10px 40px rgba(0,0,0,.8);
-  display:none;animation:fade .2s;
-}
+.nav-item .ico{font-size:20px}
+.avatar-menu{position:fixed;top:60px;right:12px;z-index:200;background:var(--preto-2);border:1px solid #333;border-radius:14px;min-width:230px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.9);display:none}
 .avatar-menu.show{display:block}
-.avatar-menu button{
-  width:100%;background:none;border:none;color:#fff;
-  padding:14px 18px;text-align:left;font-size:14px;cursor:pointer;
-  display:flex;align-items:center;gap:10px;transition:.2s;
-  border-bottom:1px solid #222;
-}
+.avatar-menu button{width:100%;background:none;border:none;color:#fff;padding:12px 18px;text-align:left;font-size:13px;cursor:pointer;border-bottom:1px solid #222;display:flex;align-items:center;gap:10px}
 .avatar-menu button:hover{background:var(--vermelho)}
 .avatar-menu button:last-child{border:none}
-
-/* MODAL */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;
-  display:none;align-items:center;justify-content:center;padding:20px;
-}
-.modal-overlay.show{display:flex;animation:fade .3s}
-.modal{
-  background:var(--preto-2);border-radius:20px;padding:24px;
-  width:100%;max-width:480px;max-height:90vh;overflow-y:auto;
-  border:2px solid var(--vermelho);box-shadow:0 0 60px rgba(229,9,20,.4);
-}
-.modal h2{color:var(--vermelho);margin-bottom:16px;font-size:22px}
-
-/* CHAT */
-.chat-box{
-  background:var(--preto-3);border-radius:12px;padding:12px;
-  height:300px;overflow-y:auto;margin-bottom:10px;
-}
-.chat-msg{
-  padding:8px 12px;border-radius:12px;margin-bottom:8px;
-  max-width:80%;font-size:14px;line-height:1.4;
-}
+.avatar-menu .user-info{padding:14px 18px;background:linear-gradient(135deg,#1a0505,#2a0808);border-bottom:2px solid var(--vermelho)}
+.avatar-menu .user-info b{font-size:14px}
+.avatar-menu .user-info small{font-size:11px;color:var(--cinza);display:block;margin-top:2px}
+.info-box{background:linear-gradient(135deg,#1a0505,#2a0808);border:1px solid var(--vermelho);border-radius:12px;padding:12px;margin:12px 0;font-size:12px;color:#ffb3b3;line-height:1.5}
+.total-box{background:var(--preto-3);padding:14px;border-radius:12px;margin:14px 0;border-left:4px solid var(--vermelho)}
+.total-row{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px}
+.total-row.final{font-size:17px;font-weight:900;color:var(--vermelho);border-top:1px solid #333;padding-top:8px;margin-top:8px}
+.tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
+.tab{padding:8px 16px;background:var(--preto-3);border:1px solid #333;border-radius:20px;color:var(--cinza);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.tab.active{background:var(--vermelho);color:#fff;border-color:var(--vermelho)}
+.chat-box{background:var(--preto-3);border-radius:12px;padding:12px;height:340px;overflow-y:auto;margin-bottom:10px}
+.chat-msg{padding:8px 12px;border-radius:14px;margin-bottom:8px;max-width:80%;font-size:13px;line-height:1.4}
 .chat-msg.me{background:var(--vermelho);margin-left:auto}
 .chat-msg.other{background:#2a2a2a}
-
-/* ESTRELAS */
-.stars{display:flex;gap:6px;justify-content:center;margin:16px 0;font-size:36px}
-.star{cursor:pointer;color:#444;transition:.2s}
-.star.active{color:#ffc107;text-shadow:0 0 15px #ffc107}
-
-/* TOAST */
-.toast{
-  position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(100px);
-  background:var(--vermelho);color:#fff;padding:12px 24px;
-  border-radius:30px;font-weight:700;font-size:14px;z-index:999;
-  transition:.4s;box-shadow:0 6px 30px rgba(229,9,20,.6);
-}
+.stars{display:flex;gap:4px;justify-content:center;margin:12px 0;font-size:34px}
+.star{cursor:pointer;color:#444;user-select:none}
+.star.active{color:var(--amarelo)}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--vermelho);color:#fff;padding:12px 22px;border-radius:30px;font-weight:700;font-size:13px;z-index:999;transition:.4s;max-width:90vw;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0)}
-
-/* HOME HERO */
-.hero{
-  background:var(--grad);border-radius:20px;padding:24px;margin-bottom:20px;
-  position:relative;overflow:hidden;
-}
-.hero::before{
-  content:'';position:absolute;top:-50px;right:-50px;
-  width:200px;height:200px;background:rgba(255,255,255,.1);
-  border-radius:50%;
-}
-.hero h1{font-size:26px;margin-bottom:8px;position:relative}
-.hero p{font-size:14px;opacity:.95;position:relative}
-
-/* SECTION TITLE */
-.section-title{
-  font-size:18px;font-weight:800;margin:20px 0 12px;
-  display:flex;align-items:center;gap:8px;
-}
-.section-title::before{
-  content:'';width:4px;height:20px;background:var(--vermelho);
-  border-radius:2px;
-}
-
-/* INFO BOX */
-.info-box{
-  background:linear-gradient(135deg,#1a0505,#2a0808);
-  border:1px solid var(--vermelho);border-radius:12px;
-  padding:14px;margin:12px 0;font-size:13px;
-  color:#ffb3b3;line-height:1.5;
-}
-
-/* PREÇO TOTAL */
-.total-box{
-  background:var(--preto-3);padding:16px;border-radius:12px;
-  margin:16px 0;border-left:4px solid var(--vermelho);
-}
-.total-row{display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px}
-.total-row.final{font-size:18px;font-weight:900;color:var(--vermelho);border-top:1px solid #333;padding-top:8px;margin-top:8px}
-
-/* STEP INDICATOR */
-.steps{display:flex;gap:8px;margin-bottom:20px;justify-content:center}
-.step-dot{
-  width:30px;height:6px;border-radius:3px;background:#333;transition:.3s;
-}
-.step-dot.active{background:var(--vermelho);box-shadow:0 0 10px var(--vermelho)}
-
-@media(max-width:360px){.products-grid{grid-template-columns:repeat(2,1fr)}}
+.toast.success{background:var(--verde)}
+.empty{text-align:center;padding:40px 20px;color:var(--cinza)}
+.empty .icon{font-size:56px;margin-bottom:12px;opacity:.5}
+.empty b{display:block;margin-bottom:6px;color:#fff;font-size:15px}
+.list-item{display:flex;gap:12px;padding:12px;background:var(--preto-2);border-radius:12px;margin-bottom:10px;border:1px solid #222;cursor:pointer;align-items:center}
+.list-item img{width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0}
+.list-item .info{flex:1;min-width:0}
+.list-item .info b{font-size:13px;display:block;margin-bottom:3px}
+.list-item .info small{font-size:11px;color:var(--cinza)}
+.list-item .right{text-align:right;font-size:11px;color:var(--cinza)}
+.list-item .right b{color:var(--vermelho);font-size:13px;display:block}
+.pill{display:inline-block;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:800;text-transform:uppercase}
+.pill.pending{background:#3d3000;color:var(--amarelo)}
+.pill.confirmed{background:#002a55;color:#64b5f6}
+.pill.done{background:#003d12;color:#4caf50}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat-box{background:var(--preto-2);border-radius:12px;padding:12px 8px;text-align:center;border:1px solid #222}
+.stat-box b{display:block;font-size:20px;color:var(--vermelho);font-weight:900}
+.stat-box small{font-size:10px;color:var(--cinza);text-transform:uppercase}
+.upload-box{border:2px dashed #444;border-radius:12px;padding:20px;text-align:center;cursor:pointer;background:var(--preto-3)}
+.upload-box .icon{font-size:36px;margin-bottom:6px}
+.upload-box small{font-size:11px;color:var(--cinza);display:block;margin-top:4px}
+.profile-head{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+.profile-avatar{width:70px;height:70px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;border:3px solid var(--vermelho)}
+.profile-info h2{font-size:18px;margin-bottom:3px}
+.profile-info small{color:var(--cinza);font-size:12px}
+.carousel{display:flex;gap:10px;overflow-x:auto;padding:4px 0 8px}
+.carousel::-webkit-scrollbar{display:none}
+.cat-card{width:100px;padding:14px 8px;background:var(--preto-2);border-radius:14px;border:1px solid #222;text-align:center;cursor:pointer;flex-shrink:0}
+.cat-card .icon{font-size:28px;margin-bottom:6px}
+.cat-card small{font-size:11px;color:var(--cinza);font-weight:700}
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <header>
-  <div class="logo">EVI<span>Eventos • Vendas • Aluguéis</span></div>
+  <div class="logo">EVI<span>EVENTOS • VENDAS • ALUGUÉIS</span></div>
   <div style="display:flex;gap:4px">
-    <button class="icon-btn" onclick="goTo('cart')" title="Carrinho">
-      🛒<span class="badge cart-count" id="cartBadge" style="display:none">0</span>
-    </button>
-    <button class="icon-btn" onclick="toggleAvatarMenu(event)" title="Perfil">
-      👤<span class="badge" id="userDot" style="display:none;background:#0f0"></span>
-    </button>
+    <button class="icon-btn" onclick="goTo('notifications')">🔔<span class="badge" id="notifBadge" style="display:none">0</span></button>
+    <button class="icon-btn" onclick="toggleAvatarMenu(event)">👤</button>
   </div>
 </header>
 
 <!-- MENU AVATAR -->
 <div class="avatar-menu" id="avatarMenu">
+  <div class="user-info" id="avatarInfo">
+    <b>Visitante</b>
+    <small>Entre para continuar</small>
+  </div>
   <button onclick="goTo('login')">🔐 Entrar / Cadastrar</button>
+  <button onclick="goTo('profile')">👤 Meu Perfil</button>
+  <button onclick="goTo('favorites')">❤️ Favoritos</button>
   <button onclick="goTo('beProvider')">🏪 Seja Fornecedor</button>
-  <button onclick="goTo('orders')">📦 Meus Pedidos</button>
-  <button onclick="goTo('chatList')">💬 Conversas</button>
+  <button onclick="goTo('providerPanel')">📊 Painel Fornecedor</button>
+  <button onclick="goTo('wallet')">💳 Carteira EVI</button>
+  <button onclick="goTo('coupons')">🎟️ Meus Cupons</button>
+  <button onclick="goTo('settings')">⚙️ Configurações</button>
   <button onclick="logout()">🚪 Sair</button>
 </div>
 
-<!-- ============ TELA LOGIN ============ -->
+<!-- LOGIN -->
 <div class="screen active" id="screen-login">
   <div class="hero">
-    <h1>Bem-vindo à EVI</h1>
-    <p>Alugue e venda produtos para seu evento em minutos</p>
+    <h1>🎉 Bem-vindo à EVI</h1>
+    <p>Alugue e venda produtos para seu evento</p>
   </div>
-
   <div class="card">
-    <h3 class="card-title">Entrar com Google</h3>
     <button class="btn-google" onclick="loginGoogle()">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
-      Continuar com Google
+      <span style="font-weight:900;color:#4285f4;font-size:20px">G</span> Continuar com Google
     </button>
   </div>
-
-  <div style="text-align:center;color:var(--cinza);margin:16px 0;font-size:13px">ou use seu email</div>
-
-  <div class="input-group">
-    <label>Email</label>
-    <input type="email" id="loginEmail" placeholder="seu@email.com">
-  </div>
-  <div class="input-group">
-    <label>Senha</label>
-    <input type="password" id="loginPass" placeholder="••••••••">
-  </div>
+  <div style="text-align:center;color:var(--cinza);margin:14px 0;font-size:12px">— ou use seu email —</div>
+  <div class="input-group"><label>Email</label><input type="email" id="loginEmail" placeholder="seu@email.com"></div>
+  <div class="input-group"><label>Senha</label><input type="password" id="loginPass" placeholder="••••••••"></div>
   <button class="btn" onclick="loginEmail()">Entrar</button>
-  <button class="btn btn-outline" style="margin-top:10px" onclick="showRegister()">Criar Conta</button>
+  <button class="btn btn-outline" onclick="goTo('register')">Criar Conta</button>
 </div>
 
-<!-- ============ TELA REGISTRO ============ -->
+<!-- REGISTRO -->
 <div class="screen" id="screen-register">
   <h2 class="section-title">Criar Conta</h2>
-  <div class="input-group"><label>Nome Completo</label><input id="regName"></div>
-  <div class="input-group"><label>Email</label><input type="email" id="regEmail"></div>
-  <div class="input-group"><label>Senha</label><input type="password" id="regPass"></div>
-  <div class="input-group"><label>Data de Nascimento</label><input type="date" id="regBirth"></div>
+  <div class="input-group"><label>Nome Completo</label><input id="regName" placeholder="João Silva"></div>
+  <div class="input-group"><label>Email</label><input type="email" id="regEmail" placeholder="seu@email.com"></div>
+  <div class="input-group"><label>Senha</label><input type="password" id="regPass" placeholder="••••••"></div>
+  <div class="input-group"><label>Nascimento</label><input type="date" id="regBirth"></div>
+  <div class="input-group"><label>Celular</label><input id="regPhone" placeholder="(00) 00000-0000" oninput="maskPhone(this)"></div>
   <button class="btn" onclick="registerUser()">Cadastrar</button>
-  <button class="btn btn-outline" style="margin-top:10px" onclick="goTo('login')">Voltar</button>
+  <button class="btn btn-outline" onclick="goTo('login')">Voltar</button>
 </div>
 
-<!-- ============ LOCALIZAÇÃO ============ -->
+<!-- LOCALIZAÇÃO -->
 <div class="screen" id="screen-location">
-  <div class="steps">
-    <div class="step-dot active"></div>
-    <div class="step-dot active"></div>
-    <div class="step-dot"></div>
-  </div>
-  <h2 class="section-title">Onde você está?</h2>
-  <p class="card-text" style="margin-bottom:16px">Vamos mostrar produtos disponíveis na sua região</p>
-
+  <h2 class="section-title">📍 Onde você está?</h2>
+  <p style="color:var(--cinza);font-size:13px;margin-bottom:14px">Mostraremos produtos da sua região</p>
   <div class="input-group">
     <label>Estado</label>
-    <select id="stateSelect">
-      <option value="">Selecione seu estado</option>
-    </select>
+    <select id="stateSelect"><option value="">Selecione</option></select>
   </div>
-  <div class="input-group">
-    <label>Cidade</label>
-    <input id="cityInput" placeholder="Digite sua cidade">
-  </div>
-  <div class="input-group">
-    <label>CEP</label>
-    <input id="cepInput" placeholder="00000-000" maxlength="9" oninput="maskCEP(this)">
-  </div>
+  <div class="input-group"><label>Cidade</label><input id="cityInput" placeholder="Sua cidade"></div>
+  <div class="input-group"><label>CEP</label><input id="cepInput" placeholder="00000-000" maxlength="9" oninput="maskCEP(this)"></div>
   <button class="btn" onclick="saveLocation()">Ver Produtos</button>
 </div>
 
-<!-- ============ HOME PRODUTOS ============ -->
+<!-- HOME -->
 <div class="screen" id="screen-home">
   <div class="hero">
     <h1 id="homeGreeting">Olá! 👋</h1>
-    <p id="homeLocation">📍 Carregando localização...</p>
+    <p id="homeLocation">📍 Carregando...</p>
   </div>
-
-  <div style="display:flex;gap:8px;margin-bottom:16px">
+  <div class="section-title">Categorias</div>
+  <div class="carousel" id="categoriesCarousel"></div>
+  <div style="margin:14px 0">
     <input id="searchInput" placeholder="🔍 Buscar produtos..." oninput="filterProducts()"
-      style="flex:1;padding:12px;background:var(--preto-3);border:2px solid #2a2a2a;border-radius:10px;color:#fff;outline:none">
-    <select id="filterType" onchange="filterProducts()"
-      style="padding:12px;background:var(--preto-3);border:2px solid #2a2a2a;border-radius:10px;color:#fff">
-      <option value="all">Todos</option>
-      <option value="venda">Venda</option>
-      <option value="aluguel">Aluguel</option>
-    </select>
+      style="width:100%;padding:12px;background:var(--preto-3);border:2px solid #2a2a2a;border-radius:10px;color:#fff;outline:none">
   </div>
-
-  <div class="section-title">Produtos Disponíveis</div>
+  <div class="tabs">
+    <div class="tab active" data-filter="all" onclick="setFilter('all',this)">Todos</div>
+    <div class="tab" data-filter="venda" onclick="setFilter('venda',this)">🛒 Venda</div>
+    <div class="tab" data-filter="aluguel" onclick="setFilter('aluguel',this)">📦 Aluguel</div>
+  </div>
+  <div class="section-title">Produtos</div>
   <div class="products-grid" id="productsGrid"></div>
 </div>
 
-<!-- ============ CARRINHO ============ -->
+<!-- CARRINHO -->
 <div class="screen" id="screen-cart">
-  <h2 class="section-title">🛒 Meu Carrinho</h2>
+  <h2 class="section-title">🛒 Carrinho</h2>
   <div id="cartItems"></div>
   <div class="total-box" id="cartTotalBox" style="display:none">
     <div class="total-row"><span>Subtotal</span><span id="cartSubtotal">R$ 0,00</span></div>
@@ -396,183 +209,208 @@ header{
   <button class="btn" id="btnFinish" style="display:none" onclick="goTo('checkout')">Finalizar Compra</button>
 </div>
 
-<!-- ============ CHECKOUT / AGENDAMENTO ============ -->
+<!-- CHECKOUT -->
 <div class="screen" id="screen-checkout">
-  <div class="steps">
-    <div class="step-dot active"></div>
-    <div class="step-dot active"></div>
-    <div class="step-dot active"></div>
-  </div>
   <h2 class="section-title">📍 Endereço do Evento</h2>
   <div class="input-group"><label>Bairro</label><input id="ckBairro"></div>
   <div class="input-group"><label>Rua</label><input id="ckRua"></div>
   <div class="input-group"><label>Número</label><input id="ckNumero"></div>
-  <div class="input-group"><label>Complemento (opcional)</label><input id="ckComp"></div>
-
-  <h2 class="section-title">📅 Data e Hora do Evento</h2>
-  <div class="input-group"><label>Data de Início</label><input type="date" id="ckData"></div>
-  <div class="input-group"><label>Hora de Início</label><input type="time" id="ckHora"></div>
-
-  <div class="info-box">
-    ⚠️ <strong>Regras de Pagamento:</strong><br>
-    • 50% do valor é pago no ato da confirmação (sinal)<br>
-    • 50% restante é pago ao final do evento<br>
-    • Em caso de desistência, metade do valor pago fica com o fornecedor
-  </div>
-
+  <div class="input-group"><label>Complemento</label><input id="ckComp"></div>
+  <h2 class="section-title">📅 Data e Hora</h2>
+  <div class="input-group"><label>Data</label><input type="date" id="ckData"></div>
+  <div class="input-group"><label>Hora</label><input type="time" id="ckHora"></div>
+  <div class="info-box">⚠️ <b>Regras:</b><br>• 50% sinal agora<br>• 50% no final<br>• Desistência: metade fica com fornecedor</div>
   <div class="total-box">
-    <div class="total-row"><span>Sinal (pagar agora)</span><span id="ckSinal">R$ 0,00</span></div>
-    <div class="total-row final"><span>Restante no evento</span><span id="ckRestante">R$ 0,00</span></div>
+    <div class="total-row"><span>Sinal agora</span><span id="ckSinal">R$ 0,00</span></div>
+    <div class="total-row final"><span>Restante</span><span id="ckRestante">R$ 0,00</span></div>
   </div>
-
-  <button class="btn" onclick="finalizarCompra()">✅ Confirmar e Enviar ao Fornecedor</button>
+  <button class="btn" onclick="finalizarCompra()">✅ Confirmar Pedido</button>
 </div>
 
-<!-- ============ SEJA FORNECEDOR ============ -->
+<!-- SEJA FORNECEDOR -->
 <div class="screen" id="screen-beProvider">
-  <div class="hero" style="background:linear-gradient(135deg,#7a0409,#e50914)">
-    <h1>🏪 Seja Fornecedor EVI</h1>
-    <p>Cadastre-se e venda/alugue para todo o Brasil</p>
-  </div>
-
-  <div class="info-box">
-    📋 Precisamos verificar sua identidade para sua segurança e dos clientes.
-  </div>
-
+  <div class="hero"><h1>🏪 Seja Fornecedor</h1><p>Cadastre-se e venda no Brasil</p></div>
   <div class="input-group"><label>Nome Completo</label><input id="pvName"></div>
   <div class="input-group"><label>Data de Nascimento</label><input type="date" id="pvBirth"></div>
   <div class="input-group"><label>Celular</label><input id="pvPhone" placeholder="(00) 00000-0000" oninput="maskPhone(this)"></div>
-  <div class="input-group"><label>CNPJ (opcional - se empresa)</label><input id="pvCnpj" placeholder="00.000.000/0000-00"></div>
-
+  <div class="input-group"><label>CNPJ (opcional)</label><input id="pvCnpj" placeholder="00.000.000/0000-00"></div>
   <div class="input-group">
-    <label>Foto do RG (frente)</label>
-    <input type="file" accept="image/*" id="pvRg" capture="environment">
+    <label>Foto do RG</label>
+    <div class="upload-box" onclick="document.getElementById('pvRg').click()">
+      <div class="icon">📄</div><b>Enviar RG</b><small>Toque para escolher</small>
+      <input type="file" id="pvRg" accept="image/*" hidden>
+    </div>
   </div>
   <div class="input-group">
-    <label>Selfie em tempo real (comparação com RG)</label>
-    <input type="file" accept="image/*" id="pvSelfie" capture="user">
+    <label>Selfie (comparar com RG)</label>
+    <div class="upload-box" onclick="document.getElementById('pvSelfie').click()">
+      <div class="icon">🤳</div><b>Tirar selfie</b><small>Camera frontal</small>
+      <input type="file" id="pvSelfie" accept="image/*" capture="user" hidden>
+    </div>
   </div>
-
-  <div class="info-box" style="font-size:12px">
-    🔒 Ao continuar, você autoriza a EVI a:<br>
-    • Acessar câmera e galeria<br>
-    • Enviar notificações<br>
-    • Acessar sua localização<br>
-    Isso permite o funcionamento correto do app.
-  </div>
-
-  <button class="btn" onclick="requestPermissions()">📱 Permitir e Enviar Cadastro</button>
+  <button class="btn" onclick="submitProvider()">📱 Enviar Cadastro</button>
 </div>
 
-<!-- ============ PEDIDOS ============ -->
+<!-- PAINEL FORNECEDOR -->
+<div class="screen" id="screen-providerPanel">
+  <h2 class="section-title">📊 Painel do Fornecedor</h2>
+  <div class="stats-grid">
+    <div class="stat-box"><b id="pvSales">0</b><small>Vendas</small></div>
+    <div class="stat-box"><b id="pvRevenue">R$0</b><small>Receita</small></div>
+    <div class="stat-box"><b id="pvProducts">0</b><small>Produtos</small></div>
+  </div>
+  <button class="btn" onclick="goTo('addProduct')">➕ Adicionar Produto</button>
+  <div class="section-title">Meus Produtos</div>
+  <div id="myProducts"></div>
+</div>
+
+<!-- ADD PRODUTO -->
+<div class="screen" id="screen-addProduct">
+  <h2 class="section-title">➕ Novo Produto</h2>
+  <div class="input-group"><label>Nome</label><input id="npName"></div>
+  <div class="input-group"><label>Descrição</label><input id="npDesc"></div>
+  <div class="input-group"><label>Preço (R$)</label><input type="number" id="npPrice"></div>
+  <div class="input-group"><label>Tipo</label><select id="npType"><option value="venda">Venda</option><option value="aluguel">Aluguel</option></select></div>
+  <div class="input-group"><label>URL da Imagem</label><input id="npImg" placeholder="https://..."></div>
+  <button class="btn" onclick="addProduct()">Salvar</button>
+</div>
+
+<!-- PEDIDOS -->
 <div class="screen" id="screen-orders">
   <h2 class="section-title">📦 Meus Pedidos</h2>
   <div id="ordersList"></div>
 </div>
 
-<!-- ============ CHAT LISTA ============ -->
+<!-- CHAT LISTA -->
 <div class="screen" id="screen-chatList">
   <h2 class="section-title">💬 Conversas</h2>
   <div id="chatList"></div>
 </div>
 
-<!-- ============ CHAT ============ -->
+<!-- CHAT -->
 <div class="screen" id="screen-chat">
   <h2 class="section-title" id="chatTitle">Chat</h2>
   <div class="chat-box" id="chatBox"></div>
   <div style="display:flex;gap:8px">
-    <input id="chatInput" placeholder="Digite sua mensagem..."
-      style="flex:1;padding:12px;background:var(--preto-3);border:2px solid #2a2a2a;border-radius:10px;color:#fff;outline:none">
-    <button class="btn" style="width:60px;padding:12px" onclick="sendMsg()">➤</button>
+    <input id="chatInput" placeholder="Digite..." style="flex:1;padding:12px;background:var(--preto-3);border:2px solid #2a2a2a;border-radius:10px;color:#fff;outline:none">
+    <button class="btn" style="width:auto;padding:12px 20px;margin:0" onclick="sendMsg()">➤</button>
   </div>
-  <button class="btn btn-outline" style="margin-top:12px" onclick="goTo('orders')">← Voltar aos Pedidos</button>
 </div>
 
-<!-- ============ AVALIAÇÃO ============ -->
+<!-- AVALIAÇÃO -->
 <div class="screen" id="screen-review">
-  <h2 class="section-title">⭐ Avaliar Produto</h2>
+  <h2 class="section-title">⭐ Avaliar</h2>
   <div class="card">
-    <div class="card-title" id="revProduct">Produto</div>
+    <div style="font-weight:800;margin-bottom:10px" id="revProduct">Produto</div>
     <div class="stars" id="starsBox">
-      <span class="star" data-v="1">★</span>
-      <span class="star" data-v="2">★</span>
-      <span class="star" data-v="3">★</span>
-      <span class="star" data-v="4">★</span>
+      <span class="star" data-v="1">★</span><span class="star" data-v="2">★</span>
+      <span class="star" data-v="3">★</span><span class="star" data-v="4">★</span>
       <span class="star" data-v="5">★</span>
     </div>
-    <div class="input-group">
-      <label>O que achou do produto?</label>
-      <textarea id="revText" rows="4" placeholder="Conte sua experiência..."></textarea>
-    </div>
+    <div class="input-group"><label>Comentário</label><textarea id="revText" rows="4" style="width:100%;padding:13px;background:var(--preto-3);border:2px solid #2a2a2a;border-radius:10px;color:#fff;outline:none;font-family:inherit"></textarea></div>
     <button class="btn" onclick="submitReview()">Enviar Avaliação</button>
   </div>
 </div>
 
+<!-- PERFIL -->
+<div class="screen" id="screen-profile">
+  <div class="profile-head">
+    <div class="profile-avatar" id="profAvatar">👤</div>
+    <div class="profile-info"><h2 id="profName">Visitante</h2><small id="profEmail">Não logado</small></div>
+  </div>
+  <div class="section-title">Opções</div>
+  <button class="btn btn-outline" onclick="goTo('orders')">📦 Meus Pedidos</button>
+  <button class="btn btn-outline" onclick="goTo('favorites')">❤️ Favoritos</button>
+  <button class="btn btn-outline" onclick="goTo('wallet')">💳 Carteira</button>
+  <button class="btn btn-outline" onclick="goTo('coupons')">🎟️ Cupons</button>
+  <button class="btn btn-outline" onclick="goTo('settings')">⚙️ Configurações</button>
+</div>
+
+<!-- FAVORITOS -->
+<div class="screen" id="screen-favorites">
+  <h2 class="section-title">❤️ Favoritos</h2>
+  <div id="favList"></div>
+</div>
+
+<!-- CARTEIRA -->
+<div class="screen" id="screen-wallet">
+  <h2 class="section-title">💳 Carteira EVI</h2>
+  <div class="card">
+    <div style="font-size:12px;color:var(--cinza)">Saldo disponível</div>
+    <div style="font-size:32px;font-weight:900;color:var(--verde);margin:10px 0">R$ 0,00</div>
+    <button class="btn">➕ Adicionar Saldo</button>
+  </div>
+</div>
+
+<!-- CUPONS -->
+<div class="screen" id="screen-coupons">
+  <h2 class="section-title">🎟️ Cupons</h2>
+  <div class="card">
+    <div style="font-weight:800;color:var(--vermelho);font-size:20px">EVI10</div>
+    <div style="font-size:12px;color:var(--cinza);margin-top:6px">10% de desconto na primeira compra</div>
+  </div>
+  <div class="card">
+    <div style="font-weight:800;color:var(--vermelho);font-size:20px">EVENTO50</div>
+    <div style="font-size:12px;color:var(--cinza);margin-top:6px">R$ 50 off acima de R$ 300</div>
+  </div>
+</div>
+
+<!-- CONFIGURAÇÕES -->
+<div class="screen" id="screen-settings">
+  <h2 class="section-title">⚙️ Configurações</h2>
+  <div class="card"><b>Notificações</b><p style="font-size:12px;color:var(--cinza);margin-top:4px">Receber avisos de pedidos</p></div>
+  <div class="card"><b>Localização</b><p style="font-size:12px;color:var(--cinza);margin-top:4px">Usar localização atual</p></div>
+  <div class="card"><b>Idioma</b><p style="font-size:12px;color:var(--cinza);margin-top:4px">Português (BR)</p></div>
+  <button class="btn btn-outline" onclick="logout()">🚪 Sair da Conta</button>
+</div>
+
+<!-- NOTIFICAÇÕES -->
+<div class="screen" id="screen-notifications">
+  <h2 class="section-title">🔔 Notificações</h2>
+  <div id="notifList"></div>
+</div>
+
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-  <button class="nav-item active" data-tab="home" onclick="goTo('home')">
-    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Início
-  </button>
-  <button class="nav-item" data-tab="cart" onclick="goTo('cart')">
-    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg>
-    Carrinho
-  </button>
-  <button class="nav-item" data-tab="orders" onclick="goTo('orders')">
-    <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.7l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.7l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.3 7 12 12 20.7 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg>
-    Pedidos
-  </button>
-  <button class="nav-item" data-tab="beProvider" onclick="goTo('beProvider')">
-    <svg viewBox="0 0 24 24"><path d="M3 9l1-4h16l1 4"/><path d="M3 9v11a1 1 0 001 1h16a1 1 0 001-1V9"/><line x1="9" y1="13" x2="15" y2="13"/></svg>
-    Vender
-  </button>
+  <button class="nav-item active" data-tab="home" onclick="goTo('home')"><span class="ico">🏠</span>Início</button>
+  <button class="nav-item" data-tab="cart" onclick="goTo('cart')"><span class="ico">🛒</span>Carrinho</button>
+  <button class="nav-item" data-tab="orders" onclick="goTo('orders')"><span class="ico">📦</span>Pedidos</button>
+  <button class="nav-item" data-tab="chatList" onclick="goTo('chatList')"><span class="ico">💬</span>Chat</button>
+  <button class="nav-item" data-tab="beProvider" onclick="goTo('beProvider')"><span class="ico">🏪</span>Vender</button>
 </nav>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-/* ========== ESTADOS BRASILEIROS ========== */
+/* ========== ESTADOS ========== */
 const ESTADOS = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"];
 const stateSelect = document.getElementById('stateSelect');
-ESTADOS.forEach(uf=>{
+ESTADOS.forEach(uf => {
   const o = document.createElement('option');
   o.value = uf; o.textContent = uf;
   stateSelect.appendChild(o);
 });
 
-/* ========== ESTADO DO APP ========== */
+/* ========== DADOS DO APP ========== */
 const App = {
-  user: null,
-  cart: [],
-  orders: JSON.parse(localStorage.getItem('evi_orders')||'[]'),
-  chats: JSON.parse(localStorage.getItem('evi_chats')||'{}'),
-  reviews: JSON.parse(localStorage.getItem('evi_reviews')||'[]'),
-  products: [],
+  user: JSON.parse(localStorage.getItem('evi_user') || 'null'),
+  location: JSON.parse(localStorage.getItem('evi_loc') || 'null'),
+  cart: JSON.parse(localStorage.getItem('evi_cart') || '[]'),
+  favorites: JSON.parse(localStorage.getItem('evi_fav') || '[]'),
+  orders: JSON.parse(localStorage.getItem('evi_orders') || '[]'),
+  myProducts: JSON.parse(localStorage.getItem('evi_myprods') || '[]'),
+  chats: JSON.parse(localStorage.getItem('evi_chats') || '{}'),
+  notifications: JSON.parse(localStorage.getItem('evi_notifs') || '[]'),
+  filter: 'all',
   currentChat: null,
   currentOrder: null,
+  reviewProduct: null,
+  reviewStars: 0
 };
 
-/* ========== PRODUTOS DEMO (com imagens reais) ========== */
-const PRODUTOS_DEMO = [
-  {id:1, nome:"Mesa Redonda 10 Lugares", preco:180, tipo:"aluguel", uf:"SP", cidade:"São Paulo", img:"https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=400"},
-  {id:2, nome:"Conjunto de Cadeiras Tiffany", preco:120, tipo:"aluguel", uf:"SP", cidade:"São Paulo", img:"https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=400"},
-  {id:3, nome:"Decoração Balões Premium", preco:350, tipo:"venda", uf:"SP", cidade:"Campinas", img:"https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400"},
-  {id:4, nome:"Iluminação LED Pista", preco:500, tipo:"aluguel", uf:"RJ", cidade:"Rio de Janeiro", img:"https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400"},
-  {id:5, nome:"Tenda 6x6m", preco:800, tipo:"aluguel", uf:"RJ", cidade:"Rio de Janeiro", img:"https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400"},
-  {id:6, nome:"Bolo de Casamento 3 Andares", preco:450, tipo:"venda", uf:"MG", cidade:"Belo Horizonte", img:"https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400"},
-  {id:7, nome:"Som Profissional 2000W", preco:600, tipo:"aluguel", uf:"MG", cidade:"Belo Horizonte", img:"https://images.unsplash.com/photo-1470229722913-7ea0d1e9c1e5?w=400"},
-  {id:8, nome:"Buffet Completo (por pessoa)", preco:85, tipo:"venda", uf:"BA", cidade:"Salvador", img:"https://images.unsplash.com/photo-1555244162-803834f70033?w=400"},
-  {id:9, nome:"Painel Fotográfico", preco:280, tipo:"aluguel", uf:"BA", cidade:"Salvador", img:"https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400"},
-  {id:10, nome:"Kit Churrasco Premium", preco:220, tipo:"venda", uf:"RS", cidade:"Porto Alegre", img:"https://images.unsplash.com/photo-1558030006-450675393462?w=400"},
-  {id:11, nome:"DJ + Equipamento", preco:900, tipo:"aluguel", uf:"RS", cidade:"Porto Alegre", img:"https://images.unsplash.com/photo-1571266028243-d220c9c3b3c4?w=400"},
-  {id:12, nome:"Flores Artificiais Premium", preco:150, tipo:"venda", uf:"PR", cidade:"Curitiba", img:"https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400"},
-];
-App.products = PRODUTOS_DEMO;
-
-/* ========== NAVEGAÇÃO ========== */
-function goTo(tab){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const el = document.getElementById('screen-'+tab);
-  if(el) el.classList.add('active');
-  document.querySelectorAll('.nav-item').
+function save(){
+  localStorage.setItem('evi_user', JSON.stringify(App.user));
+  localStorage.setItem('evi_loc', JSON.stringify(App.location));
+  localStorage.setItem('evi_cart', JSON.stringify(App.cart));
+  localStorage.setItem('evi_fav', JSON.stringify(App.favorites));
+  localStorage.setItem('evi_orders', JSON.stringify
