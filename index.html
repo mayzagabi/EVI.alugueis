@@ -3,104 +3,186 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EVI - Eventos</title>
+<title>EVI - Eventos, Vendas e Aluguéis</title>
 <style>
-:root{--vermelho:#e50914;--preto:#0a0a0a;--preto-2:#141414;--preto-3:#1f1f1f;--cinza:#888;--branco:#fff;--grad:linear-gradient(135deg,#e50914 0%,#7a0409 100%);--verde:#00c853;--amarelo:#ffc107}
+:root{
+  --vermelho:#e50914; --vermelho-esc:#8b0000; --preto:#0a0a0a;
+  --preto-2:#141414; --preto-3:#1f1f1f; --cinza:#888; --branco:#fff;
+  --verde:#00c853; --amarelo:#ffc107;
+  --grad:linear-gradient(135deg,#e50914 0%,#7a0409 100%);
+}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--preto);color:var(--branco);padding-bottom:80px}
-header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-filter:blur(20px);border-bottom:2px solid var(--vermelho);padding:10px 14px;display:flex;align-items:center;gap:10px}
-.logo{font-size:22px;font-weight:900;letter-spacing:3px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex:1}
-.logo span{display:block;font-size:9px;letter-spacing:1px;color:var(--cinza);-webkit-text-fill-color:var(--cinza)}
-.icon-btn{background:none;border:none;color:var(--branco);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;position:relative}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--preto);color:var(--branco);padding-bottom:80px}
+
+/* ===== ESCONDE TODAS AS TELAS POR PADRÃO ===== */
+.screen{display:none !important;padding:16px;min-height:calc(100vh - 140px)}
+.screen.active{display:block !important;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);
+  backdrop-filter:blur(20px);border-bottom:2px solid var(--vermelho);
+  padding:10px 14px;display:flex;align-items:center;gap:10px}
+.logo{font-size:22px;font-weight:900;letter-spacing:3px;
+  background:var(--grad);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;flex:1}
+.logo span{display:block;font-size:9px;letter-spacing:1px;
+  color:var(--cinza);-webkit-text-fill-color:var(--cinza)}
+.icon-btn{background:none;border:none;color:var(--branco);width:40px;height:40px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:20px;position:relative}
 .icon-btn:hover{background:var(--vermelho)}
-.badge{position:absolute;top:2px;right:2px;background:var(--vermelho);color:#fff;font-size:9px;font-weight:bold;border-radius:50%;min-width:16px;height:16px;padding:0 4px;display:flex;align-items:center;justify-content:center;border:2px solid var(--preto)}
-.screen{display:none;padding:16px;min-height:calc(100vh - 140px)}
-.screen.active{display:block}
-.btn{background:var(--grad);color:#fff;border:none;padding:14px 22px;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;width:100%;text-transform:uppercase;letter-spacing:1px;box-shadow:0 4px 20px rgba(229,9,20,.4);margin-top:8px}
+.badge{position:absolute;top:2px;right:2px;background:var(--vermelho);color:#fff;
+  font-size:9px;font-weight:bold;border-radius:50%;min-width:16px;height:16px;
+  padding:0 4px;display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--preto)}
+
+.btn{background:var(--grad);color:#fff;border:none;padding:14px 22px;
+  border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;width:100%;
+  text-transform:uppercase;letter-spacing:1px;
+  box-shadow:0 4px 20px rgba(229,9,20,.4);margin-top:8px}
 .btn:active{transform:scale(.97)}
-.btn-outline{background:transparent;border:2px solid var(--vermelho);color:var(--vermelho);box-shadow:none}
-.btn-success{background:linear-gradient(135deg,#00c853,#009624);box-shadow:0 4px 20px rgba(0,200,83,.4)}
-.btn-google{background:#fff;color:#333;border:none;padding:14px;border-radius:12px;font-weight:700;width:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-size:15px}
+.btn-outline{background:transparent;border:2px solid var(--vermelho);
+  color:var(--vermelho);box-shadow:none}
+.btn-outline:hover{background:var(--vermelho);color:#fff}
+.btn-success{background:linear-gradient(135deg,#00c853,#009624)}
+.btn-google{background:#fff;color:#333;border:none;padding:14px;
+  border-radius:12px;font-weight:700;width:100%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;font-size:15px}
+
 .input-group{margin-bottom:14px}
-.input-group label{display:block;font-size:12px;color:var(--cinza);margin-bottom:5px;font-weight:700;text-transform:uppercase}
-.input-group input,.input-group select,.input-group textarea{width:100%;padding:13px;background:var(--preto-3);border:2px solid #2a2a2a;border-radius:10px;color:#fff;font-size:14px;outline:none;font-family:inherit}
+.input-group label{display:block;font-size:12px;color:var(--cinza);
+  margin-bottom:5px;font-weight:700;text-transform:uppercase}
+.input-group input,.input-group select,.input-group textarea{
+  width:100%;padding:13px;background:var(--preto-3);border:2px solid #2a2a2a;
+  border-radius:10px;color:#fff;font-size:14px;outline:none;font-family:inherit}
 .input-group input:focus,.input-group select:focus{border-color:var(--vermelho)}
-.card{background:var(--preto-2);border-radius:16px;padding:16px;margin-bottom:14px;border:1px solid #222}
+
+.card{background:var(--preto-2);border-radius:16px;padding:16px;
+  margin-bottom:14px;border:1px solid #222}
 .hero{background:var(--grad);border-radius:20px;padding:22px;margin-bottom:18px}
 .hero h1{font-size:22px;margin-bottom:6px}
 .hero p{font-size:13px;opacity:.95}
-.section-title{font-size:16px;font-weight:800;margin:18px 0 10px;display:flex;align-items:center;gap:8px}
-.section-title::before{content:'';width:4px;height:18px;background:var(--vermelho);border-radius:2px}
+
+.section-title{font-size:16px;font-weight:800;margin:18px 0 10px;
+  display:flex;align-items:center;gap:8px}
+.section-title::before{content:'';width:4px;height:18px;
+  background:var(--vermelho);border-radius:2px}
+
 .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.product-card{background:var(--preto-2);border-radius:14px;overflow:hidden;border:1px solid #222;position:relative}
+.product-card{background:var(--preto-2);border-radius:14px;overflow:hidden;
+  border:1px solid #222;position:relative}
 .product-img{width:100%;height:130px;object-fit:cover;background:var(--preto-3)}
 .product-info{padding:10px}
 .product-name{font-size:13px;font-weight:700;margin-bottom:4px;line-height:1.3}
 .product-price{font-size:16px;color:var(--vermelho);font-weight:900;margin-bottom:6px}
 .product-actions{display:flex;gap:6px}
-.product-actions button{flex:1;padding:7px;font-size:11px;border-radius:7px;border:none;cursor:pointer;font-weight:700}
+.product-actions button{flex:1;padding:7px;font-size:11px;border-radius:7px;
+  border:none;cursor:pointer;font-weight:700}
 .btn-add{background:var(--preto-3);color:#fff;border:1px solid #333}
 .btn-buy{background:var(--vermelho);color:#fff}
-.product-tag{position:absolute;top:8px;left:8px;color:#fff;font-size:9px;padding:3px 7px;border-radius:5px;font-weight:800;text-transform:uppercase}
+.product-tag{position:absolute;top:8px;left:8px;color:#fff;font-size:9px;
+  padding:3px 7px;border-radius:5px;font-weight:800;text-transform:uppercase}
 .product-tag.rent{background:#ff6b00}
 .product-tag.sell{background:var(--verde)}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);border-top:2px solid var(--vermelho);display:flex;justify-content:space-around;padding:8px 0}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;color:var(--cinza);cursor:pointer;font-size:10px;font-weight:700;padding:6px 10px;text-transform:uppercase}
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:rgba(10,10,10,.98);backdrop-filter:blur(20px);
+  border-top:2px solid var(--vermelho);display:flex;justify-content:space-around;
+  padding:8px 0}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;
+  background:none;border:none;color:var(--cinza);cursor:pointer;font-size:10px;
+  font-weight:700;padding:6px 10px;text-transform:uppercase}
 .nav-item.active{color:var(--vermelho)}
 .nav-item .ico{font-size:20px}
-.avatar-menu{position:fixed;top:60px;right:12px;z-index:200;background:var(--preto-2);border:1px solid #333;border-radius:14px;min-width:230px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.9);display:none}
+
+.avatar-menu{position:fixed;top:60px;right:12px;z-index:200;
+  background:var(--preto-2);border:1px solid #333;border-radius:14px;
+  min-width:230px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.9);display:none}
 .avatar-menu.show{display:block}
-.avatar-menu button{width:100%;background:none;border:none;color:#fff;padding:12px 18px;text-align:left;font-size:13px;cursor:pointer;border-bottom:1px solid #222;display:flex;align-items:center;gap:10px}
+.avatar-menu button{width:100%;background:none;border:none;color:#fff;
+  padding:12px 18px;text-align:left;font-size:13px;cursor:pointer;
+  border-bottom:1px solid #222}
 .avatar-menu button:hover{background:var(--vermelho)}
 .avatar-menu button:last-child{border:none}
-.avatar-menu .user-info{padding:14px 18px;background:linear-gradient(135deg,#1a0505,#2a0808);border-bottom:2px solid var(--vermelho)}
+.avatar-menu .user-info{padding:14px 18px;
+  background:linear-gradient(135deg,#1a0505,#2a0808);
+  border-bottom:2px solid var(--vermelho)}
 .avatar-menu .user-info b{font-size:14px}
-.avatar-menu .user-info small{font-size:11px;color:var(--cinza);display:block;margin-top:2px}
-.info-box{background:linear-gradient(135deg,#1a0505,#2a0808);border:1px solid var(--vermelho);border-radius:12px;padding:12px;margin:12px 0;font-size:12px;color:#ffb3b3;line-height:1.5}
-.total-box{background:var(--preto-3);padding:14px;border-radius:12px;margin:14px 0;border-left:4px solid var(--vermelho)}
+.avatar-menu .user-info small{font-size:11px;color:var(--cinza);
+  display:block;margin-top:2px}
+
+.info-box{background:linear-gradient(135deg,#1a0505,#2a0808);
+  border:1px solid var(--vermelho);border-radius:12px;padding:12px;
+  margin:12px 0;font-size:12px;color:#ffb3b3;line-height:1.5}
+.total-box{background:var(--preto-3);padding:14px;border-radius:12px;
+  margin:14px 0;border-left:4px solid var(--vermelho)}
 .total-row{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px}
-.total-row.final{font-size:17px;font-weight:900;color:var(--vermelho);border-top:1px solid #333;padding-top:8px;margin-top:8px}
+.total-row.final{font-size:17px;font-weight:900;color:var(--vermelho);
+  border-top:1px solid #333;padding-top:8px;margin-top:8px}
+
 .tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
-.tab{padding:8px 16px;background:var(--preto-3);border:1px solid #333;border-radius:20px;color:var(--cinza);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.tab{padding:8px 16px;background:var(--preto-3);border:1px solid #333;
+  border-radius:20px;color:var(--cinza);font-size:12px;font-weight:700;
+  cursor:pointer;white-space:nowrap}
 .tab.active{background:var(--vermelho);color:#fff;border-color:var(--vermelho)}
-.chat-box{background:var(--preto-3);border-radius:12px;padding:12px;height:340px;overflow-y:auto;margin-bottom:10px}
-.chat-msg{padding:8px 12px;border-radius:14px;margin-bottom:8px;max-width:80%;font-size:13px;line-height:1.4}
+
+.chat-box{background:var(--preto-3);border-radius:12px;padding:12px;
+  height:340px;overflow-y:auto;margin-bottom:10px}
+.chat-msg{padding:8px 12px;border-radius:14px;margin-bottom:8px;
+  max-width:80%;font-size:13px;line-height:1.4}
 .chat-msg.me{background:var(--vermelho);margin-left:auto}
 .chat-msg.other{background:#2a2a2a}
+
 .stars{display:flex;gap:4px;justify-content:center;margin:12px 0;font-size:34px}
 .star{cursor:pointer;color:#444;user-select:none}
 .star.active{color:var(--amarelo)}
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--vermelho);color:#fff;padding:12px 22px;border-radius:30px;font-weight:700;font-size:13px;z-index:999;transition:.4s;max-width:90vw;text-align:center}
+
+.toast{position:fixed;bottom:90px;left:50%;
+  transform:translateX(-50%) translateY(100px);background:var(--vermelho);
+  color:#fff;padding:12px 22px;border-radius:30px;font-weight:700;font-size:13px;
+  z-index:999;transition:.4s;max-width:90vw;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast.success{background:var(--verde)}
-.empty{text-align:center;padding:40px 20px;color:var(--cinza)}
-.empty .icon{font-size:56px;margin-bottom:12px;opacity:.5}
-.empty b{display:block;margin-bottom:6px;color:#fff;font-size:15px}
-.list-item{display:flex;gap:12px;padding:12px;background:var(--preto-2);border-radius:12px;margin-bottom:10px;border:1px solid #222;cursor:pointer;align-items:center}
-.list-item img{width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0}
+
+.list-item{display:flex;gap:12px;padding:12px;background:var(--preto-2);
+  border-radius:12px;margin-bottom:10px;border:1px solid #222;
+  cursor:pointer;align-items:center}
+.list-item img{width:56px;height:56px;border-radius:10px;
+  object-fit:cover;flex-shrink:0}
 .list-item .info{flex:1;min-width:0}
 .list-item .info b{font-size:13px;display:block;margin-bottom:3px}
 .list-item .info small{font-size:11px;color:var(--cinza)}
 .list-item .right{text-align:right;font-size:11px;color:var(--cinza)}
 .list-item .right b{color:var(--vermelho);font-size:13px;display:block}
-.pill{display:inline-block;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:800;text-transform:uppercase}
-.pill.pending{background:#3d3000;color:var(--amarelo)}
-.pill.confirmed{background:#002a55;color:#64b5f6}
-.pill.done{background:#003d12;color:#4caf50}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.stat-box{background:var(--preto-2);border-radius:12px;padding:12px 8px;text-align:center;border:1px solid #222}
+
+.empty{text-align:center;padding:40px 20px;color:var(--cinza)}
+.empty .icon{font-size:56px;margin-bottom:12px;opacity:.5}
+.empty b{display:block;margin-bottom:6px;color:#fff;font-size:15px}
+
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:10px;margin-bottom:14px}
+.stat-box{background:var(--preto-2);border-radius:12px;padding:12px 8px;
+  text-align:center;border:1px solid #222}
 .stat-box b{display:block;font-size:20px;color:var(--vermelho);font-weight:900}
 .stat-box small{font-size:10px;color:var(--cinza);text-transform:uppercase}
-.upload-box{border:2px dashed #444;border-radius:12px;padding:20px;text-align:center;cursor:pointer;background:var(--preto-3)}
+
+.upload-box{border:2px dashed #444;border-radius:12px;padding:20px;
+  text-align:center;cursor:pointer;background:var(--preto-3)}
 .upload-box .icon{font-size:36px;margin-bottom:6px}
 .upload-box small{font-size:11px;color:var(--cinza);display:block;margin-top:4px}
+
 .profile-head{display:flex;gap:14px;align-items:center;margin-bottom:16px}
-.profile-avatar{width:70px;height:70px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;border:3px solid var(--vermelho)}
+.profile-avatar{width:70px;height:70px;border-radius:50%;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;font-size:28px;
+  font-weight:900;border:3px solid var(--vermelho)}
 .profile-info h2{font-size:18px;margin-bottom:3px}
 .profile-info small{color:var(--cinza);font-size:12px}
+
 .carousel{display:flex;gap:10px;overflow-x:auto;padding:4px 0 8px}
-.carousel::-webkit-scrollbar{display:none}
-.cat-card{width:100px;padding:14px 8px;background:var(--preto-2);border-radius:14px;border:1px solid #222;text-align:center;cursor:pointer;flex-shrink:0}
+.cat-card{width:100px;padding:14px 8px;background:var(--preto-2);
+  border-radius:14px;border:1px solid #222;text-align:center;
+  cursor:pointer;flex-shrink:0}
 .cat-card .icon{font-size:28px;margin-bottom:6px}
 .cat-card small{font-size:11px;color:var(--cinza);font-weight:700}
 </style>
@@ -111,7 +193,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
 <header>
   <div class="logo">EVI<span>EVENTOS • VENDAS • ALUGUÉIS</span></div>
   <div style="display:flex;gap:4px">
-    <button class="icon-btn" onclick="goTo('notifications')">🔔<span class="badge" id="notifBadge" style="display:none">0</span></button>
+    <button class="icon-btn" onclick="goTo('notifications')">🔔</button>
     <button class="icon-btn" onclick="toggleAvatarMenu(event)">👤</button>
   </div>
 </header>
@@ -141,12 +223,15 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
   </div>
   <div class="card">
     <button class="btn-google" onclick="loginGoogle()">
-      <span style="font-weight:900;color:#4285f4;font-size:20px">G</span> Continuar com Google
+      <span style="font-weight:900;color:#4285f4;font-size:20px">G</span>
+      Continuar com Google
     </button>
   </div>
   <div style="text-align:center;color:var(--cinza);margin:14px 0;font-size:12px">— ou use seu email —</div>
-  <div class="input-group"><label>Email</label><input type="email" id="loginEmail" placeholder="seu@email.com"></div>
-  <div class="input-group"><label>Senha</label><input type="password" id="loginPass" placeholder="••••••••"></div>
+  <div class="input-group"><label>Email</label>
+    <input type="email" id="loginEmail" placeholder="seu@email.com"></div>
+  <div class="input-group"><label>Senha</label>
+    <input type="password" id="loginPass" placeholder="••••••••"></div>
   <button class="btn" onclick="loginEmail()">Entrar</button>
   <button class="btn btn-outline" onclick="goTo('register')">Criar Conta</button>
 </div>
@@ -154,11 +239,12 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
 <!-- REGISTRO -->
 <div class="screen" id="screen-register">
   <h2 class="section-title">Criar Conta</h2>
-  <div class="input-group"><label>Nome Completo</label><input id="regName" placeholder="João Silva"></div>
-  <div class="input-group"><label>Email</label><input type="email" id="regEmail" placeholder="seu@email.com"></div>
-  <div class="input-group"><label>Senha</label><input type="password" id="regPass" placeholder="••••••"></div>
+  <div class="input-group"><label>Nome Completo</label><input id="regName"></div>
+  <div class="input-group"><label>Email</label><input type="email" id="regEmail"></div>
+  <div class="input-group"><label>Senha</label><input type="password" id="regPass"></div>
   <div class="input-group"><label>Nascimento</label><input type="date" id="regBirth"></div>
-  <div class="input-group"><label>Celular</label><input id="regPhone" placeholder="(00) 00000-0000" oninput="maskPhone(this)"></div>
+  <div class="input-group"><label>Celular</label>
+    <input id="regPhone" placeholder="(00) 00000-0000" oninput="maskPhone(this)"></div>
   <button class="btn" onclick="registerUser()">Cadastrar</button>
   <button class="btn btn-outline" onclick="goTo('login')">Voltar</button>
 </div>
@@ -166,13 +252,15 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
 <!-- LOCALIZAÇÃO -->
 <div class="screen" id="screen-location">
   <h2 class="section-title">📍 Onde você está?</h2>
-  <p style="color:var(--cinza);font-size:13px;margin-bottom:14px">Mostraremos produtos da sua região</p>
+  <p style="color:var(--cinza);font-size:13px;margin-bottom:14px">
+    Mostraremos produtos da sua região</p>
   <div class="input-group">
     <label>Estado</label>
     <select id="stateSelect"><option value="">Selecione</option></select>
   </div>
-  <div class="input-group"><label>Cidade</label><input id="cityInput" placeholder="Sua cidade"></div>
-  <div class="input-group"><label>CEP</label><input id="cepInput" placeholder="00000-000" maxlength="9" oninput="maskCEP(this)"></div>
+  <div class="input-group"><label>Cidade</label><input id="cityInput"></div>
+  <div class="input-group"><label>CEP</label>
+    <input id="cepInput" placeholder="00000-000" maxlength="9" oninput="maskCEP(this)"></div>
   <button class="btn" onclick="saveLocation()">Ver Produtos</button>
 </div>
 
@@ -185,8 +273,10 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
   <div class="section-title">Categorias</div>
   <div class="carousel" id="categoriesCarousel"></div>
   <div style="margin:14px 0">
-    <input id="searchInput" placeholder="🔍 Buscar produtos..." oninput="filterProducts()"
-      style="width:100%;padding:12px;background:var(--preto-3);border:2px solid #2a2a2a;border-radius:10px;color:#fff;outline:none">
+    <input id="searchInput" placeholder="🔍 Buscar produtos..."
+      oninput="filterProducts()"
+      style="width:100%;padding:12px;background:var(--preto-3);
+      border:2px solid #2a2a2a;border-radius:10px;color:#fff;outline:none">
   </div>
   <div class="tabs">
     <div class="tab active" data-filter="all" onclick="setFilter('all',this)">Todos</div>
@@ -202,11 +292,15 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
   <h2 class="section-title">🛒 Carrinho</h2>
   <div id="cartItems"></div>
   <div class="total-box" id="cartTotalBox" style="display:none">
-    <div class="total-row"><span>Subtotal</span><span id="cartSubtotal">R$ 0,00</span></div>
-    <div class="total-row"><span>Sinal (50%)</span><span id="cartSinal">R$ 0,00</span></div>
-    <div class="total-row final"><span>Total</span><span id="cartTotal">R$ 0,00</span></div>
+    <div class="total-row"><span>Subtotal</span>
+      <span id="cartSubtotal">R$ 0,00</span></div>
+    <div class="total-row"><span>Sinal (50%)</span>
+      <span id="cartSinal">R$ 0,00</span></div>
+    <div class="total-row final"><span>Total</span>
+      <span id="cartTotal">R$ 0,00</span></div>
   </div>
-  <button class="btn" id="btnFinish" style="display:none" onclick="goTo('checkout')">Finalizar Compra</button>
+  <button class="btn" id="btnFinish" style="display:none"
+    onclick="goTo('checkout')">Finalizar Compra</button>
 </div>
 
 <!-- CHECKOUT -->
@@ -219,21 +313,32 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
   <h2 class="section-title">📅 Data e Hora</h2>
   <div class="input-group"><label>Data</label><input type="date" id="ckData"></div>
   <div class="input-group"><label>Hora</label><input type="time" id="ckHora"></div>
-  <div class="info-box">⚠️ <b>Regras:</b><br>• 50% sinal agora<br>• 50% no final<br>• Desistência: metade fica com fornecedor</div>
+  <div class="info-box">
+    ⚠️ <b>Regras:</b><br>
+    • 50% sinal agora<br>• 50% no final do evento<br>
+    • Desistência: metade fica com o fornecedor
+  </div>
   <div class="total-box">
-    <div class="total-row"><span>Sinal agora</span><span id="ckSinal">R$ 0,00</span></div>
-    <div class="total-row final"><span>Restante</span><span id="ckRestante">R$ 0,00</span></div>
+    <div class="total-row"><span>Sinal agora</span>
+      <span id="ckSinal">R$ 0,00</span></div>
+    <div class="total-row final"><span>Restante</span>
+      <span id="ckRestante">R$ 0,00</span></div>
   </div>
   <button class="btn" onclick="finalizarCompra()">✅ Confirmar Pedido</button>
 </div>
 
 <!-- SEJA FORNECEDOR -->
 <div class="screen" id="screen-beProvider">
-  <div class="hero"><h1>🏪 Seja Fornecedor</h1><p>Cadastre-se e venda no Brasil</p></div>
+  <div class="hero">
+    <h1>🏪 Seja Fornecedor</h1>
+    <p>Cadastre-se e venda no Brasil</p>
+  </div>
   <div class="input-group"><label>Nome Completo</label><input id="pvName"></div>
-  <div class="input-group"><label>Data de Nascimento</label><input type="date" id="pvBirth"></div>
-  <div class="input-group"><label>Celular</label><input id="pvPhone" placeholder="(00) 00000-0000" oninput="maskPhone(this)"></div>
-  <div class="input-group"><label>CNPJ (opcional)</label><input id="pvCnpj" placeholder="00.000.000/0000-00"></div>
+  <div class="input-group"><label>Data de Nascimento</label>
+    <input type="date" id="pvBirth"></div>
+  <div class="input-group"><label>Celular</label>
+    <input id="pvPhone" oninput="maskPhone(this)"></div>
+  <div class="input-group"><label>CNPJ (opcional)</label><input id="pvCnpj"></div>
   <div class="input-group">
     <label>Foto do RG</label>
     <div class="upload-box" onclick="document.getElementById('pvRg').click()">
@@ -242,9 +347,9 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
     </div>
   </div>
   <div class="input-group">
-    <label>Selfie (comparar com RG)</label>
+    <label>Selfie</label>
     <div class="upload-box" onclick="document.getElementById('pvSelfie').click()">
-      <div class="icon">🤳</div><b>Tirar selfie</b><small>Camera frontal</small>
+      <div class="icon">🤳</div><b>Tirar selfie</b>
       <input type="file" id="pvSelfie" accept="image/*" capture="user" hidden>
     </div>
   </div>
@@ -269,9 +374,15 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
   <h2 class="section-title">➕ Novo Produto</h2>
   <div class="input-group"><label>Nome</label><input id="npName"></div>
   <div class="input-group"><label>Descrição</label><input id="npDesc"></div>
-  <div class="input-group"><label>Preço (R$)</label><input type="number" id="npPrice"></div>
-  <div class="input-group"><label>Tipo</label><select id="npType"><option value="venda">Venda</option><option value="aluguel">Aluguel</option></select></div>
-  <div class="input-group"><label>URL da Imagem</label><input id="npImg" placeholder="https://..."></div>
+  <div class="input-group"><label>Preço (R$)</label>
+    <input type="number" id="npPrice"></div>
+  <div class="input-group"><label>Tipo</label>
+    <select id="npType">
+      <option value="venda">Venda</option>
+      <option value="aluguel">Aluguel</option>
+    </select></div>
+  <div class="input-group"><label>URL da Imagem</label>
+    <input id="npImg" placeholder="https://..."></div>
   <button class="btn" onclick="addProduct()">Salvar</button>
 </div>
 
@@ -292,8 +403,11 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
   <h2 class="section-title" id="chatTitle">Chat</h2>
   <div class="chat-box" id="chatBox"></div>
   <div style="display:flex;gap:8px">
-    <input id="chatInput" placeholder="Digite..." style="flex:1;padding:12px;background:var(--preto-3);border:2px solid #2a2a2a;border-radius:10px;color:#fff;outline:none">
-    <button class="btn" style="width:auto;padding:12px 20px;margin:0" onclick="sendMsg()">➤</button>
+    <input id="chatInput" placeholder="Digite..."
+      style="flex:1;padding:12px;background:var(--preto-3);
+      border:2px solid #2a2a2a;border-radius:10px;color:#fff;outline:none">
+    <button class="btn" style="width:auto;padding:12px 20px;margin:0"
+      onclick="sendMsg()">➤</button>
   </div>
 </div>
 
@@ -303,11 +417,17 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
   <div class="card">
     <div style="font-weight:800;margin-bottom:10px" id="revProduct">Produto</div>
     <div class="stars" id="starsBox">
-      <span class="star" data-v="1">★</span><span class="star" data-v="2">★</span>
-      <span class="star" data-v="3">★</span><span class="star" data-v="4">★</span>
+      <span class="star" data-v="1">★</span>
+      <span class="star" data-v="2">★</span>
+      <span class="star" data-v="3">★</span>
+      <span class="star" data-v="4">★</span>
       <span class="star" data-v="5">★</span>
     </div>
-    <div class="input-group"><label>Comentário</label><textarea id="revText" rows="4" style="width:100%;padding:13px;background:var(--preto-3);border:2px solid #2a2a2a;border-radius:10px;color:#fff;outline:none;font-family:inherit"></textarea></div>
+    <div class="input-group"><label>Comentário</label>
+      <textarea id="revText" rows="4"
+        style="width:100%;padding:13px;background:var(--preto-3);
+        border:2px solid #2a2a2a;border-radius:10px;color:#fff;
+        outline:none;font-family:inherit"></textarea></div>
     <button class="btn" onclick="submitReview()">Enviar Avaliação</button>
   </div>
 </div>
@@ -316,9 +436,11 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
 <div class="screen" id="screen-profile">
   <div class="profile-head">
     <div class="profile-avatar" id="profAvatar">👤</div>
-    <div class="profile-info"><h2 id="profName">Visitante</h2><small id="profEmail">Não logado</small></div>
+    <div class="profile-info">
+      <h2 id="profName">Visitante</h2>
+      <small id="profEmail">Não logado</small>
+    </div>
   </div>
-  <div class="section-title">Opções</div>
   <button class="btn btn-outline" onclick="goTo('orders')">📦 Meus Pedidos</button>
   <button class="btn btn-outline" onclick="goTo('favorites')">❤️ Favoritos</button>
   <button class="btn btn-outline" onclick="goTo('wallet')">💳 Carteira</button>
@@ -347,7 +469,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
   <h2 class="section-title">🎟️ Cupons</h2>
   <div class="card">
     <div style="font-weight:800;color:var(--vermelho);font-size:20px">EVI10</div>
-    <div style="font-size:12px;color:var(--cinza);margin-top:6px">10% de desconto na primeira compra</div>
+    <div style="font-size:12px;color:var(--cinza);margin-top:6px">10% off primeira compra</div>
   </div>
   <div class="card">
     <div style="font-weight:800;color:var(--vermelho);font-size:20px">EVENTO50</div>
@@ -358,9 +480,12 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
 <!-- CONFIGURAÇÕES -->
 <div class="screen" id="screen-settings">
   <h2 class="section-title">⚙️ Configurações</h2>
-  <div class="card"><b>Notificações</b><p style="font-size:12px;color:var(--cinza);margin-top:4px">Receber avisos de pedidos</p></div>
-  <div class="card"><b>Localização</b><p style="font-size:12px;color:var(--cinza);margin-top:4px">Usar localização atual</p></div>
-  <div class="card"><b>Idioma</b><p style="font-size:12px;color:var(--cinza);margin-top:4px">Português (BR)</p></div>
+  <div class="card"><b>Notificações</b>
+    <p style="font-size:12px;color:var(--cinza);margin-top:4px">Receber avisos</p></div>
+  <div class="card"><b>Localização</b>
+    <p style="font-size:12px;color:var(--cinza);margin-top:4px">Usar atual</p></div>
+  <div class="card"><b>Idioma</b>
+    <p style="font-size:12px;color:var(--cinza);margin-top:4px">Português (BR)</p></div>
   <button class="btn btn-outline" onclick="logout()">🚪 Sair da Conta</button>
 </div>
 
@@ -372,18 +497,29 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-  <button class="nav-item active" data-tab="home" onclick="goTo('home')"><span class="ico">🏠</span>Início</button>
-  <button class="nav-item" data-tab="cart" onclick="goTo('cart')"><span class="ico">🛒</span>Carrinho</button>
-  <button class="nav-item" data-tab="orders" onclick="goTo('orders')"><span class="ico">📦</span>Pedidos</button>
-  <button class="nav-item" data-tab="chatList" onclick="goTo('chatList')"><span class="ico">💬</span>Chat</button>
-  <button class="nav-item" data-tab="beProvider" onclick="goTo('beProvider')"><span class="ico">🏪</span>Vender</button>
+  <button class="nav-item active" data-tab="home" onclick="goTo('home')">
+    <span class="ico">🏠</span>Início</button>
+  <button class="nav-item" data-tab="cart" onclick="goTo('cart')">
+    <span class="ico">🛒</span>Carrinho</button>
+  <button class="nav-item" data-tab="orders" onclick="goTo('orders')">
+    <span class="ico">📦</span>Pedidos</button>
+  <button class="nav-item" data-tab="chatList" onclick="goTo('chatList')">
+    <span class="ico">💬</span>Chat</button>
+  <button class="nav-item" data-tab="beProvider" onclick="goTo('beProvider')">
+    <span class="ico">🏪</span>Vender</button>
 </nav>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ========== ESTADOS ========== */
-const ESTADOS = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"];
+/* ============================================
+   EVI - APP COMPLETO
+============================================ */
+
+/* Estados brasileiros */
+const ESTADOS = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA",
+  "MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR",
+  "SC","SP","SE","TO"];
 const stateSelect = document.getElementById('stateSelect');
 ESTADOS.forEach(uf => {
   const o = document.createElement('option');
@@ -391,7 +527,7 @@ ESTADOS.forEach(uf => {
   stateSelect.appendChild(o);
 });
 
-/* ========== DADOS DO APP ========== */
+/* Estado global */
 const App = {
   user: JSON.parse(localStorage.getItem('evi_user') || 'null'),
   location: JSON.parse(localStorage.getItem('evi_loc') || 'null'),
@@ -400,17 +536,622 @@ const App = {
   orders: JSON.parse(localStorage.getItem('evi_orders') || '[]'),
   myProducts: JSON.parse(localStorage.getItem('evi_myprods') || '[]'),
   chats: JSON.parse(localStorage.getItem('evi_chats') || '{}'),
-  notifications: JSON.parse(localStorage.getItem('evi_notifs') || '[]'),
   filter: 'all',
   currentChat: null,
-  currentOrder: null,
-  reviewProduct: null,
-  reviewStars: 0
+  reviewStars: 0,
+  products: []
 };
+
+/* ========== PRODUTOS DEMO ========== */
+const PRODUTOS_DEMO = [
+  {id:1, nome:"Mesa Redonda 10 Lugares", preco:180, tipo:"aluguel",
+    uf:"SP", cidade:"São Paulo",
+    img:"https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=400"},
+  {id:2, nome:"Conjunto Cadeiras Tiffany", preco:120, tipo:"aluguel",
+    uf:"SP", cidade:"São Paulo",
+    img:"https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=400"},
+  {id:3, nome:"Decoração Balões Premium", preco:350, tipo:"venda",
+    uf:"SP", cidade:"Campinas",
+    img:"https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400"},
+  {id:4, nome:"Iluminação LED Pista", preco:500, tipo:"aluguel",
+    uf:"RJ", cidade:"Rio de Janeiro",
+    img:"https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400"},
+  {id:5, nome:"Tenda 6x6m", preco:800, tipo:"aluguel",
+    uf:"RJ", cidade:"Rio de Janeiro",
+    img:"https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400"},
+  {id:6, nome:"Bolo Casamento 3 Andares", preco:450, tipo:"venda",
+    uf:"MG", cidade:"Belo Horizonte",
+    img:"https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400"},
+  {id:7, nome:"Som Profissional 2000W", preco:600, tipo:"aluguel",
+    uf:"MG", cidade:"Belo Horizonte",
+    img:"https://images.unsplash.com/photo-1470229722913-7ea0d1e9c1e5?w=400"},
+  {id:8, nome:"Buffet Completo", preco:85, tipo:"venda",
+    uf:"BA", cidade:"Salvador",
+    img:"https://images.unsplash.com/photo-1555244162-803834f70033?w=400"},
+  {id:9, nome:"Painel Fotográfico", preco:280, tipo:"aluguel",
+    uf:"BA", cidade:"Salvador",
+    img:"https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400"},
+  {id:10, nome:"Kit Churrasco Premium", preco:220, tipo:"venda",
+    uf:"RS", cidade:"Porto Alegre",
+    img:"https://images.unsplash.com/photo-1558030006-450675393462?w=400"}
+];
+App.products = PRODUTOS_DEMO;
+
+/* ========== NAVEGAÇÃO ========== */
+function goTo(tab){
+  console.log('Navegando para:', tab);
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('screen-' + tab);
+  if(el){
+    el.classList.add('active');
+  } else {
+    console.warn('Tela não encontrada:', 'screen-' + tab);
+    return;
+  }
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const navItem = document.querySelector('.nav-item[data-tab="' + tab + '"]');
+  if(navItem) navItem.classList.add('active');
+  document.getElementById('avatarMenu').classList.remove('show');
+  window.scrollTo(0, 0);
+
+  /* Ações ao abrir cada tela */
+  if(tab === 'home') renderHome();
+  if(tab === 'cart') renderCart();
+  if(tab === 'orders') renderOrders();
+  if(tab === 'chatList') renderChatList();
+  if(tab === 'favorites') renderFavorites();
+  if(tab === 'notifications') renderNotifications();
+  if(tab === 'profile') renderProfile();
+  if(tab === 'providerPanel') renderProviderPanel();
+  if(tab === 'checkout') updateCheckout();
+}
+
+/* ========== MENU AVATAR ========== */
+function toggleAvatarMenu(e){
+  e.stopPropagation();
+  const menu = document.getElementById('avatarMenu');
+  menu.classList.toggle('show');
+  updateAvatarMenu();
+}
+document.addEventListener('click', () => {
+  document.getElementById('avatarMenu').classList.remove('show');
+});
+document.getElementById('avatarMenu').addEventListener('click', e => e.stopPropagation());
+
+function updateAvatarMenu(){
+  const info = document.getElementById('avatarInfo');
+  if(App.user){
+    info.innerHTML = '<b>' + App.user.name + '</b><small>' + App.user.email + '</small>';
+  } else {
+    info.innerHTML = '<b>Visitante</b><small>Entre para continuar</small>';
+  }
+}
+
+/* ========== LOGIN / LOGOUT ========== */
+function loginGoogle(){
+  App.user = {
+    name: 'Usuário Google',
+    email: 'usuario@gmail.com',
+    birth: '',
+    phone: '',
+    provider: true
+  };
+  save();
+  showToast('Login Google realizado! ✅', 'success');
+  if(App.location) goTo('home');
+  else goTo('location');
+}
+
+function loginEmail(){
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+  if(!email || !pass){
+    showToast('Preencha email e senha', 'error');
+    return;
+  }
+  App.user = { name: email.split('@')[0], email, birth:'', phone:'' };
+  save();
+  showToast('Bem-vindo! ✅', 'success');
+  if(App.location) goTo('home');
+  else goTo('location');
+}
+
+function registerUser(){
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const pass = document.getElementById('regPass').value.trim();
+  if(!name || !email || !pass){
+    showToast('Preencha todos os campos', 'error');
+    return;
+  }
+  App.user = {
+    name, email,
+    birth: document.getElementById('regBirth').value,
+    phone: document.getElementById('regPhone').value
+  };
+  save();
+  showToast('Conta criada! ✅', 'success');
+  goTo('location');
+}
+
+function logout(){
+  App.user = null;
+  save();
+  showToast('Você saiu da conta');
+  goTo('login');
+}
+
+/* ========== LOCALIZAÇÃO ========== */
+function saveLocation(){
+  const uf = document.getElementById('stateSelect').value;
+  const cidade = document.getElementById('cityInput').value.trim();
+  const cep = document.getElementById('cepInput').value.trim();
+  if(!uf || !cidade){
+    showToast('Selecione estado e digite a cidade', 'error');
+    return;
+  }
+  App.location = { uf, cidade, cep };
+  save();
+  showToast('Localização salva ✅', 'success');
+  goTo('home');
+}
+
+/* ========== HOME ========== */
+function renderHome(){
+  /* Saudação */
+  const greeting = document.getElementById('homeGreeting');
+  greeting.textContent = App.user ?
+    'Olá, ' + App.user.name.split(' ')[0] + '! 👋' : 'Olá! 👋';
+
+  /* Localização */
+  const loc = document.getElementById('homeLocation');
+  if(App.location){
+    loc.textContent = '📍 ' + App.location.cidade + ' - ' + App.location.uf;
+  } else {
+    loc.textContent = '📍 Localização não definida';
+  }
+
+  /* Categorias */
+  const cats = [
+    {icon:'🎂', name:'Bolos'},
+    {icon:'🍽️', name:'Buffet'},
+    {icon:'🎈', name:'Decoração'},
+    {icon:'🎵', name:'Som/DJ'},
+    {icon:'💡', name:'Iluminação'},
+    {icon:'⛺', name:'Tendas'},
+    {icon:'📸', name:'Fotografia'},
+    {icon:'🍖', name:'Churrasco'}
+  ];
+  const carousel = document.getElementById('categoriesCarousel');
+  carousel.innerHTML = cats.map(c =>
+    '<div class="cat-card" onclick="showToast(\'Categoria: ' + c.name + '\')">' +
+    '<div class="icon">' + c.icon + '</div><small>' + c.name + '</small></div>'
+  ).join('');
+
+  /* Produtos */
+  filterProducts();
+}
+
+function filterProducts(){
+  const grid = document.getElementById('productsGrid');
+  const search = (document.getElementById('searchInput').value || '').toLowerCase();
+  let list = App.products.slice();
+
+  if(App.location){
+    list.sort((a,b) => {
+      const aLocal = (a.uf === App.location.uf) ? 1 : 0;
+      const bLocal = (b.uf === App.location.uf) ? 1 : 0;
+      return bLocal - aLocal;
+    });
+  }
+
+  if(App.filter !== 'all'){
+    list = list.filter(p => p.tipo === App.filter);
+  }
+  if(search){
+    list = list.filter(p => p.nome.toLowerCase().includes(search));
+  }
+
+  if(list.length === 0){
+    grid.innerHTML = '<div class="empty" style="grid-column:1/-1">' +
+      '<div class="icon">🔍</div><b>Nenhum produto encontrado</b></div>';
+    return;
+  }
+
+  grid.innerHTML = list.map(p => {
+    const tag = p.tipo === 'aluguel' ?
+      '<span class="product-tag rent">Aluguel</span>' :
+      '<span class="product-tag sell">Venda</span>';
+    return '<div class="product-card">' + tag +
+      '<img class="product-img" src="' + p.img + '" alt="' + p.nome +
+      '" onerror="this.style.background=\'#1f1f1f\';this.src=\'\'">' +
+      '<div class="product-info">' +
+      '<div class="product-name">' + p.nome + '</div>' +
+      '<div class="product-price">R$ ' + p.preco + ',00</div>' +
+      '<div class="product-actions">' +
+      '<button class="btn-add" onclick="addToCart(' + p.id + ')">🛒 Carrinho</button>' +
+      '<button class="btn-buy" onclick="buyNow(' + p.id + ')">Comprar</button>' +
+      '</div></div></div>';
+  }).join('');
+}
+
+function setFilter(f, el){
+  App.filter = f;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  filterProducts();
+}
+
+/* ========== CARRINHO ========== */
+function addToCart(id){
+  const prod = App.products.find(p => p.id === id);
+  if(!prod) return;
+  const existing = App.cart.find(c => c.id === id);
+  if(existing) existing.qty++;
+  else App.cart.push({...prod, qty:1});
+  save();
+  updateCartBadge();
+  showToast('Adicionado ao carrinho! 🛒', 'success');
+}
+
+function buyNow(id){
+  addToCart(id);
+  goTo('cart');
+}
+
+function updateCartBadge(){
+  const total = App.cart.reduce((s,c) => s + c.qty, 0);
+  const badge = document.getElementById('cartBadge');
+  if(badge){
+    if(total > 0){ badge.textContent = total; badge.style.display = 'flex'; }
+    else badge.style.display = 'none';
+  }
+}
+
+function renderCart(){
+  const box = document.getElementById('cartItems');
+  const totalBox = document.getElementById('cartTotalBox');
+  const btnFinish = document.getElementById('btnFinish');
+
+  if(App.cart.length === 0){
+    box.innerHTML = '<div class="empty"><div class="icon">🛒</div>' +
+      '<b>Seu carrinho está vazio</b></div>';
+    totalBox.style.display = 'none';
+    btnFinish.style.display = 'none';
+    return;
+  }
+
+  box.innerHTML = App.cart.map(c =>
+    '<div class="list-item">' +
+    '<img src="' + c.img + '" onerror="this.style.background=\'#1f1f1f\'">' +
+    '<div class="info"><b>' + c.nome + '</b>' +
+    '<small>Qtd: ' + c.qty + ' × R$ ' + c.preco + '</small></div>' +
+    '<div class="right"><b>R$ ' + (c.preco * c.qty) + '</b>' +
+    '<button onclick="removeFromCart(' + c.id + ')" ' +
+    'style="background:none;border:none;color:var(--vermelho);cursor:pointer;font-size:16px">🗑️</button>' +
+    '</div></div>'
+  ).join('');
+
+  const subtotal = App.cart.reduce((s,c) => s + c.preco * c.qty, 0);
+  document.getElementById('cartSubtotal').textContent = 'R$ ' + subtotal + ',00';
+  document.getElementById('cartSinal').textContent = 'R$ ' + (subtotal/2).toFixed(2) + '';
+  document.getElementById('cartTotal').textContent = 'R$ ' + subtotal + ',00';
+  totalBox.style.display = 'block';
+  btnFinish.style.display = 'block';
+}
+
+function removeFromCart(id){
+  App.cart = App.cart.filter(c => c.id !== id);
+  save();
+  updateCartBadge();
+  renderCart();
+  showToast('Item removido');
+}
+
+/* ========== CHECKOUT ========== */
+function updateCheckout(){
+  const subtotal = App.cart.reduce((s,c) => s + c.preco * c.qty, 0);
+  document.getElementById('ckSinal').textContent = 'R$ ' + (subtotal/2).toFixed(2);
+  document.getElementById('ckRestante').textContent = 'R$ ' + (subtotal/2).toFixed(2);
+}
+
+function finalizarCompra(){
+  if(App.cart.length === 0){
+    showToast('Carrinho vazio', 'error'); return;
+  }
+  const bairro = document.getElementById('ckBairro').value.trim();
+  const rua = document.getElementById('ckRua').value.trim();
+  const numero = document.getElementById('ckNumero').value.trim();
+  const data = document.getElementById('ckData').value;
+  const hora = document.getElementById('ckHora').value;
+
+  if(!bairro || !rua || !data || !hora){
+    showToast('Preencha endereço, data e hora', 'error');
+    return;
+  }
+
+  const subtotal = App.cart.reduce((s,c) => s + c.preco * c.qty, 0);
+  const order = {
+    id: Date.now(),
+    items: [...App.cart],
+    endereco: { bairro, rua, numero, comp: document.getElementById('ckComp').value },
+    data, hora,
+    total: subtotal,
+    sinal: subtotal/2,
+    status: 'pending',
+    createdAt: new Date().toISOString(),
+    supplierPhone: '5511999999999'
+  };
+
+  App.orders.unshift(order);
+  App.cart = [];
+  save();
+  updateCartBadge();
+
+  /* Mensagem para o WhatsApp do fornecedor */
+  const msg = encodeURIComponent(
+    'Olá! Novo pedido EVI #' + order.id + '\n' +
+    'Cliente: ' + (App.user ? App.user.name : 'Visitante') + '\n' +
+    'Data: ' + data + ' às ' + hora + '\n' +
+    'Endereço: ' + rua + ', ' + numero + ' - ' + bairro + '\n' +
+    'Total: R$ ' + subtotal + '\n' +
+    'Sinal: R$ ' + (subtotal/2).toFixed(2)
+  );
+  window.open('https://wa.me/' + order.supplierPhone + '?text=' + msg, '_blank');
+
+  showToast('Pedido enviado ao fornecedor! ✅', 'success');
+  goTo('orders');
+}
+
+/* ========== PEDIDOS ========== */
+function renderOrders(){
+  const box = document.getElementById('ordersList');
+  if(App.orders.length === 0){
+    box.innerHTML = '<div class="empty"><div class="icon">📦</div>' +
+      '<b>Nenhum pedido ainda</b></div>';
+    return;
+  }
+  box.innerHTML = App.orders.map(o =>
+    '<div class="card">' +
+    '<div style="display:flex;justify-content:space-between;margin-bottom:10px">' +
+    '<b>Pedido #' + o.id + '</b>' +
+    '<span class="pill pending">Aguardando</span></div>' +
+    '<div style="font-size:12px;color:var(--cinza);margin-bottom:6px">' +
+    '📅 ' + o.data + ' às ' + o.hora + '</div>' +
+    '<div style="font-size:12px;color:var(--cinza);margin-bottom:10px">' +
+    '📍 ' + o.endereco.rua + ', ' + o.endereco.numero + ' - ' + o.endereco.bairro + '</div>' +
+    '<div class="total-row"><span>' + o.items.length + ' item(s)</span>' +
+    '<b style="color:var(--vermelho)">R$ ' + o.total + ',00</b></div>' +
+    '<div style="display:flex;gap:8px;margin-top:12px">' +
+    '<button class="btn" style="margin:0" onclick="openChat(' + o.id + ')">💬 Chat</button>' +
+    '<button class="btn btn-outline" style="margin:0" onclick="goTo(\'review\')">⭐ Avaliar</button>' +
+    '</div></div>'
+  ).join('');
+}
+
+/* ========== CHAT ========== */
+function openChat(orderId){
+  App.currentChat = 'order_' + orderId;
+  if(!App.chats[App.currentChat]) App.chats[App.currentChat] = [];
+  document.getElementById('chatTitle').textContent = 'Chat do Pedido #' + orderId;
+  renderChatMessages();
+  goTo('chat');
+}
+
+function renderChatMessages(){
+  const box = document.getElementById('chatBox');
+  const msgs = App.chats[App.currentChat] || [];
+  box.innerHTML = msgs.map(m =>
+    '<div class="chat-msg ' + (m.me ? 'me' : 'other') + '">' +
+    m.text + '<small>' + m.time + '</small></div>'
+  ).join('');
+  box.scrollTop = box.scrollHeight;
+}
+
+function sendMsg(){
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text || !App.currentChat) return;
+
+  if(!App.chats[App.currentChat]) App.chats[App.currentChat] = [];
+  App.chats[App.currentChat].push({
+    me: true, text,
+    time: new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})
+  });
+  input.value = '';
+  save();
+  renderChatMessages();
+
+  /* Simulação de resposta */
+  setTimeout(() => {
+    App.chats[App.currentChat].push({
+      me: false, text: 'Ok, recebido! Vou verificar.',
+      time: new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})
+    });
+    save();
+    renderChatMessages();
+  }, 1500);
+}
+
+function renderChatList(){
+  const box = document.getElementById('chatList');
+  const keys = Object.keys(App.chats);
+  if(keys.length === 0){
+    box.innerHTML = '<div class="empty"><div class="icon">💬</div>' +
+      '<b>Nenhuma conversa</b><p>Fale com um fornecedor</p></div>';
+    return;
+  }
+  box.innerHTML = keys.map(k => {
+    const msgs = App.chats[k];
+    const last = msgs[msgs.length-1];
+    return '<div class="list-item" onclick="App.currentChat=\'' + k + '\';' +
+      'renderChatMessages();goTo(\'chat\')">' +
+      '<div style="width:48px;height:48px;background:var(--grad);' +
+      'border-radius:50%;display:flex;align-items:center;' +
+      'justify-content:center;font-size:20px">💬</div>' +
+      '<div class="info"><b>' + k.replace('order_','Pedido #') + '</b>' +
+      '<small>' + (last ? last.text : '') + '</small></div></div>';
+  }).join('');
+}
+
+/* ========== AVALIAÇÃO ========== */
+document.querySelectorAll('.star').forEach(s => {
+  s.addEventListener('click', () => {
+    App.reviewStars = parseInt(s.dataset.v);
+    document.querySelectorAll('.star').forEach(st => {
+      st.classList.toggle('active', parseInt(st.dataset.v) <= App.reviewStars);
+    });
+  });
+});
+
+function submitReview(){
+  if(App.reviewStars === 0){
+    showToast('Escolha uma nota de 1 a 5 estrelas', 'error'); return;
+  }
+  const text = document.getElementById('revText').value.trim();
+  save();
+  showToast('Avaliação enviada! ⭐', 'success');
+  App.reviewStars = 0;
+  document.getElementById('revText').value = '';
+  document.querySelectorAll('.star').forEach(st => st.classList.remove('active'));
+  goTo('orders');
+}
+
+/* ========== FAVORITOS ========== */
+function renderFavorites(){
+  const box = document.getElementById('favList');
+  if(App.favorites.length === 0){
+    box.innerHTML = '<div class="empty"><div class="icon">❤️</div>' +
+      '<b>Nenhum favorito ainda</b></div>';
+    return;
+  }
+  box.innerHTML = App.favorites.map(f =>
+    '<div class="list-item"><img src="' + f.img + '">' +
+    '<div class="info"><b>' + f.nome + '</b>' +
+    '<small>R$ ' + f.preco + ',00</small></div></div>'
+  ).join('');
+}
+
+/* ========== FORNECEDOR ========== */
+function submitProvider(){
+  const name = document.getElementById('pvName').value.trim();
+  if(!name){
+    showToast('Preencha o nome completo', 'error'); return;
+  }
+  App.user = App.user || {};
+  App.user.provider = true;
+  App.user.name = App.user.name || name;
+  save();
+  showToast('Cadastro de fornecedor enviado! ✅', 'success');
+  goTo('providerPanel');
+}
+
+function renderProviderPanel(){
+  document.getElementById('pvSales').textContent = App.orders.length;
+  const total = App.orders.reduce((s,o) => s + o.total, 0);
+  document.getElementById('pvRevenue').textContent = 'R$' + total;
+  document.getElementById('pvProducts').textContent = App.myProducts.length;
+
+  const box = document.getElementById('myProducts');
+  if(App.myProducts.length === 0){
+    box.innerHTML = '<div class="empty"><div class="icon">📦</div>' +
+      '<b>Nenhum produto cadastrado</b></div>';
+  } else {
+    box.innerHTML = App.myProducts.map(p =>
+      '<div class="list-item"><img src="' + (p.img||'') + '">' +
+      '<div class="info"><b>' + p.nome + '</b>' +
+      '<small>R$ ' + p.preco + ' • ' + p.tipo + '</small></div></div>'
+    ).join('');
+  }
+}
+
+function addProduct(){
+  const nome = document.getElementById('npName').value.trim();
+  const preco = parseFloat(document.getElementById('npPrice').value);
+  if(!nome || !preco){
+    showToast('Preencha nome e preço', 'error'); return;
+  }
+  const prod = {
+    id: Date.now(),
+    nome, preco,
+    desc: document.getElementById('npDesc').value,
+    tipo: document.getElementById('npType').value,
+    img: document.getElementById('npImg').value ||
+      'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400',
+    uf: App.location ? App.location.uf : 'SP',
+    cidade: App.location ? App.location.cidade : 'São Paulo'
+  };
+  App.myProducts.push(prod);
+  App.products.unshift(prod);
+  save();
+  showToast('Produto cadastrado! ✅', 'success');
+  goTo('providerPanel');
+}
+
+/* ========== PERFIL ========== */
+function renderProfile(){
+  document.getElementById('profAvatar').textContent =
+    App.user ? App.user.name.charAt(0).toUpperCase() : '👤';
+  document.getElementById('profName').textContent =
+    App.user ? App.user.name : 'Visitante';
+  document.getElementById('profEmail').textContent =
+    App.user ? App.user.email : 'Não logado';
+}
+
+/* ========== NOTIFICAÇÕES ========== */
+function renderNotifications(){
+  const box = document.getElementById('notifList');
+  box.innerHTML = '<div class="empty"><div class="icon">🔔</div>' +
+    '<b>Sem notificações</b><p>Você será avisado sobre pedidos aqui</p></div>';
+}
+
+/* ========== UTIL ========== */
+function maskPhone(el){
+  let v = el.value.replace(/\D/g,'').slice(0,11);
+  v = v.replace(/(\d{2})(\d)/,'($1) $2');
+  v = v.replace(/(\d{5})(\d)/,'$1-$2');
+  el.value = v;
+}
+function maskCEP(el){
+  let v = el.value.replace(/\D/g,'').slice(0,8);
+  v = v.replace(/(\d{5})(\d)/,'$1-$2');
+  el.value = v;
+}
+
+function showToast(msg, type){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + (type || '');
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 3000);
+}
 
 function save(){
   localStorage.setItem('evi_user', JSON.stringify(App.user));
   localStorage.setItem('evi_loc', JSON.stringify(App.location));
   localStorage.setItem('evi_cart', JSON.stringify(App.cart));
+  localStorage.setItem('evi_orders', JSON.stringify(App.orders));
+  localStorage.setItem('evi_myprods', JSON.stringify(App.myProducts));
+  localStorage.setItem('evi_chats', JSON.stringify(App.chats));
   localStorage.setItem('evi_fav', JSON.stringify(App.favorites));
-  localStorage.setItem('evi_orders', JSON.stringify
+}
+
+/* ========== INICIALIZAÇÃO ========== */
+(function init(){
+  console.log('EVI App iniciado');
+  updateAvatarMenu();
+  updateCartBadge();
+
+  /* Se já está logado, vai pra home */
+  if(App.user && App.location){
+    goTo('home');
+  } else if(App.user){
+    goTo('location');
+  } else {
+    goTo('login');
+  }
+})();
+</script>
+</body>
+</html>
